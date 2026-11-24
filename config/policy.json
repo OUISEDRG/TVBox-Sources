@@ -19,5 +19,31 @@
     "anime": 5,
     "movies": 8,
     "short": 5
+  },
+  "maintenance": {
+    "mode": "frozen_roster",
+    "roster": [
+      "liangzi",
+      "tsukimi",
+      "xifan",
+      "hongguo",
+      "qimao",
+      "kanju",
+      "dongpian",
+      "duboku",
+      "guazi",
+      "ikanbot",
+      "hanquan",
+      "bashi",
+      "giri",
+      "huazi",
+      "hema",
+      "weiguan",
+      "haokan",
+      "yiqi"
+    ],
+    "automatic_admission": false,
+    "automatic_dependency_updates": false,
+    "automatic_trial_removal": false
   }
 }

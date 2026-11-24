@@ -1,6 +1,8 @@
 import unittest
 from sync import build, read, ROOT, BASE, LIMITS
-from health import transition, probe, audit_upstreams, mass_loss
+from health import transition, probe, audit_upstreams, mass_loss, frozen_guard, check_dependencies, compare_selected, maintenance_snapshot
+import hashlib
+import copy
 
 def site(id="one", **kwargs):
     return dict(id=id, name=id, status="active", type=1, api="https://example.com/" + id,
@@ -239,6 +241,37 @@ class MaintenanceTests(unittest.TestCase):
         self.assertTrue(mass_loss(before, after))
         self.assertFalse(mass_loss(before, before))
         self.assertFalse(mass_loss({'sites':[]}, before))
+    def test_frozen_roster(self):
+        registry, policy = read("config/registry.json"), read("config/policy.json")
+        frozen_guard(registry, policy)
+        with self.assertRaisesRegex(ValueError, "Unexpected new"):
+            frozen_guard({"sites":registry["sites"]+[site("unapproved_new")]}, policy)
+    def test_dependency_hash(self):
+        data = b"fixture"
+        dep = {"id":"fixture","url":"https://raw.githubusercontent.com/qist/tvbox/"+"a"*40+"/jar/spider.jar",
+               "git_blob":hashlib.sha1(b"blob 7\x00"+data).hexdigest(),"size":len(data)}
+        good = check_dependencies({"trial_dependencies":[dep]}, lambda url:("ok",data))
+        self.assertEqual(good["fixture"]["status"], "integrity_ok")
+        self.assertFalse(good["fixture"]["executed"])
+        bad = check_dependencies({"trial_dependencies":[dep]}, lambda url:("ok",b"changed"))
+        self.assertEqual(bad["fixture"]["status"], "integrity_mismatch")
+    def test_frozen_snapshot_no_mutation(self):
+        registry, policy, deps, upstreams = (read(p) for p in
+            ("config/registry.json","config/policy.json","config/dependencies.json","config/upstreams.json"))
+        before = copy.deepcopy((registry,policy,deps))
+        r = maintenance_snapshot(registry,policy,deps,upstreams,{}, "full",
+                                 dep_getter=lambda url:("unknown",None),
+                                 json_getter=lambda url:("unknown",None))
+        self.assertEqual((registry,policy,deps), before)
+        self.assertEqual(len(r["trial_health"]),len(policy["maintenance"]["roster"]))
+        self.assertEqual(r["maintenance"]["status"],"review_required")
+        self.assertEqual(r["maintenance"]["playback_test"],"not_performed")
+    def test_upstream_diff_metadata_only(self):
+        registry, upstreams = read("config/registry.json"),read("config/upstreams.json")
+        result = compare_selected(registry,upstreams,lambda url:("ok",{"sites":[{"key":"量子","type":1,"api":"https://example.com/changed"}]}))
+        self.assertEqual(result["liangzi"]["status"],"changed_upstream")
+        self.assertIn("api", result["liangzi"]["changed_fields"])
+        self.assertNotIn("example.com",str(result))
     def test_watch_fallback(self):
         result = build({"sites":[site("main", status="watch", primary_for=["series"]),site("backup")]}, read("config/policy.json"),read("config/dependencies.json"))
         self.assertEqual(result["sources/series.json"]["sites"][0]["key"], "backup")

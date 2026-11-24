@@ -174,8 +174,8 @@ def main():
     parser.add_argument("--audit-upstreams", action="store_true")
     args = parser.parse_args()
     if args.audit_upstreams:
-        from health import audit_only
-        audit_only()
+        from health import frozen_run
+        frozen_run("sync")
         return
     result = build(read("config/registry.json"), read("config/policy.json"), read("config/dependencies.json"), read("reports/health.json").get("sites", {}))
     if args.check:

@@ -2,6 +2,7 @@ name: TVBox maintenance
 on:
   push:
     branches: [main]
+    paths: ['scripts/**', 'config/**', '.github/workflows/maintenance.yml', 'preview.json', 'tvbox.json', 'sources/**']
   schedule:
     - cron: '30 20 * * *'
     - cron: '0 2,14 * * *'
@@ -11,7 +12,7 @@ on:
         description: Maintenance mode
         type: choice
         options: [check, sync, health, preview, build, full]
-        default: check
+        default: full
 permissions:
   contents: read
 concurrency:
@@ -20,25 +21,29 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
       - run: python3 scripts/sync.py --check
       - run: python3 scripts/test.py
+      - name: Live read-only maintenance verification
+        if: github.event_name == 'push'
+        run: python3 scripts/health.py --mode full --dry-run
   maintain:
     needs: check
     if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode != 'check'))
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: main
-      - name: Run bounded maintenance
+          persist-credentials: false
+      - name: Run frozen roster maintenance
         env:
           MODE: ${{ inputs.mode }}
           SCHEDULE: ${{ github.event.schedule }}
@@ -46,22 +51,25 @@ jobs:
           set -eu
           if [ "$SCHEDULE" = "30 20 * * *" ]; then MODE=health; fi
           if [ "$SCHEDULE" = "0 2,14 * * *" ]; then MODE=sync; fi
-          case "$MODE" in
-            sync) python3 scripts/sync.py --audit-upstreams ;;
-            health) python3 scripts/health.py ;;
-            full) python3 scripts/sync.py --audit-upstreams; python3 scripts/health.py ;;
-            preview|build) ;;
-            *) exit 1 ;;
-          esac
-          python3 scripts/sync.py
           python3 scripts/sync.py --check
           python3 scripts/test.py
-      - name: Commit only validated generated changes
+          case "$MODE" in
+            sync|health|full) python3 scripts/health.py --mode "$MODE" ;;
+            preview|build) python3 scripts/sync.py --check ;;
+            *) exit 1 ;;
+          esac
+          python3 scripts/sync.py --check
+          python3 scripts/test.py
+          git diff --exit-code -- . ':!reports/health.json'
+      - name: Publish report only
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -eu
-          git add -- config/registry.json reports/health.json tvbox.json preview.json sources/
+          git add -- reports/health.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'chore: validated maintenance update'
+          git commit -m 'chore: frozen roster maintenance report'
+          gh auth setup-git
           git push origin HEAD:main

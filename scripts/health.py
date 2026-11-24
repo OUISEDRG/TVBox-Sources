@@ -3,6 +3,8 @@ import argparse
 import copy
 import datetime as dt
 import http.client
+import hashlib
+import re
 import ipaddress
 import json
 import socket
@@ -18,7 +20,7 @@ RAW_HOST = "raw.githubusercontent.com"
 def day():
     return dt.datetime.now(UTC8).date().isoformat()
 
-def fetch_json(url):
+def fetch_bytes(url, limit=MAX_BYTES):
     """HTTPS only, no redirects, no credentials, public IPs only; connect to vetted IP."""
     u = urlsplit(url)
     if not https_url(url.split("?", 1)[0]) or u.fragment:
@@ -39,15 +41,21 @@ def fetch_json(url):
             return "unknown", None
         if r.status != 200:
             return ("fail" if r.status in (404, 410, 500, 502, 503, 504) else "unknown"), None
-        data = r.read(MAX_BYTES + 1)
-        if len(data) > MAX_BYTES:
+        data = r.read(limit + 1)
+        if len(data) > limit:
             return "unknown", None
-        try:
-            return "ok", json.loads(data)
-        except (ValueError, UnicodeError):
-            return "fail", None
+        return "ok", data
     finally:
         conn.close()
+
+def fetch_json(url):
+    state, data = fetch_bytes(url)
+    if state != "ok":
+        return state, None
+    try:
+        return "ok", json.loads(data)
+    except (ValueError, UnicodeError):
+        return "fail", None
 
 def safe_fetch(url, getter=fetch_json):
     try:
@@ -199,8 +207,139 @@ def run_health():
     if blocked:
         print("Bulk loss held: human review required; formal registry unchanged")
 
+def frozen_guard(registry, policy):
+    """Only previously selected IDs may be visible; maintenance cannot add sites."""
+    cfg = policy["maintenance"]
+    if cfg["mode"] != "frozen_roster" or any(cfg[k] is not False for k in
+            ("automatic_admission","automatic_dependency_updates","automatic_trial_removal")):
+        raise ValueError("Frozen maintenance policy changed")
+    roster = cfg["roster"]
+    if len(roster) != len(set(roster)):
+        raise ValueError("Duplicate frozen roster ID")
+    actual = {s["id"] for s in registry["sites"] if s["status"] in ("trial","trial_verified","pending_playback","active","watch")}
+    if not actual <= set(roster):
+        raise ValueError("Unexpected new visible site in frozen roster")
+
+def check_dependencies(deps, getter=fetch_bytes):
+    """Read pinned bytes, never import, unpack or execute. Persist only checksums."""
+    results = {}
+    for dep in deps.get("trial_dependencies", []):
+        url = dep["url"].split(";md5;", 1)[0]
+        if not https_url(url) or not re.fullmatch(r"https://raw\.githubusercontent\.com/qist/tvbox/[a-f0-9]{40}/(?:jar/spider\.jar|py/[A-Za-z0-9%_.-]+\.py)", url):
+            raise ValueError("Unexpected dependency URL")
+        try:
+            state, data = getter(url)
+        except (OSError, ValueError, http.client.HTTPException):
+            state, data = "unknown", None
+        if state != "ok":
+            results[dep["id"]] = {"status":state, "executed":False}
+            continue
+        blob = hashlib.sha1(("blob " + str(len(data)) + "\0").encode() + data).hexdigest()
+        sha = hashlib.sha256(data).hexdigest()
+        match = blob == dep.get("git_blob") and len(data) == dep.get("size")
+        if dep.get("upstream_md5"):
+            match = match and hashlib.md5(data, usedforsecurity=False).hexdigest() == dep["upstream_md5"]
+        if dep.get("sha256"):
+            match = match and sha == dep["sha256"]
+        results[dep["id"]] = {"status":"integrity_ok" if match else "integrity_mismatch",
+                             "sha256":sha,"git_blob_match":blob == dep.get("git_blob"),"bytes":len(data),
+                             "executed":False,"security_review":"unverified"}
+    return results
+
+def compare_selected(registry, config, getter=fetch_json):
+    """Compare retained sites to latest qist metadata; never import changed definitions."""
+    url = next(u["audit_url"] for u in config["upstreams"] if u["id"] == "qist")
+    if url != "https://raw.githubusercontent.com/qist/tvbox/master/jsm.json":
+        raise ValueError("Unexpected selected upstream")
+    state, data = safe_fetch(url, getter)
+    sites = [s for s in registry["sites"] if s["status"] == "trial_verified"]
+    if state != "ok" or not isinstance(data, dict) or not isinstance(data.get("sites"), list):
+        return {s["id"]:{"status":"unknown"} for s in sites}
+    by_key = {}
+    for item in data["sites"]:
+        if isinstance(item, dict) and isinstance(item.get("key"), str):
+            by_key.setdefault(item["key"], []).append(item)
+    result = {}
+    for s in sites:
+        matches = by_key.get(s["upstream_key"], [])
+        if not matches:
+            result[s["id"]] = {"status":"missing_upstream"}
+            continue
+        if len(matches) != 1:
+            result[s["id"]] = {"status":"duplicate_upstream_key"}
+            continue
+        remote = matches[0]
+        entry = s["trial_entry"]
+        api = remote.get("api")
+        if isinstance(api,str) and api.startswith("./"):
+            from urllib.parse import quote
+            api = "https://raw.githubusercontent.com/qist/tvbox/" + s["upstream_ref"] + "/" + quote(api[2:], safe="/")
+        fields = [k for k in ("type","ext","searchable","quickSearch","filterable","changeable","playerType","genre")
+                  if remote.get(k) != entry.get(k)]
+        if api != entry["api"]:
+            fields.append("api")
+        # Category lists may be intentionally curated locally; not a configuration change.
+        result[s["id"]] = {"status":"changed_upstream" if fields else "unchanged",
+                           "changed_fields":fields}
+    return result
+
+def maintenance_snapshot(registry, policy, deps, upstreams, old, mode="full",
+                         dep_getter=fetch_bytes, json_getter=fetch_json):
+    """Frozen mode: observe only; never mutate registry, dependencies or subscriptions."""
+    frozen_guard(registry, policy)
+    snapshot = copy.deepcopy(old)
+    date = day()
+    if mode in ("sync","full"):
+        snapshot["upstream_audit"] = audit_upstreams(upstreams, snapshot.get("upstream_audit"), json_getter)
+        snapshot["upstream_audited_on"] = date
+        snapshot["retained_upstream"] = compare_selected(registry, upstreams, json_getter)
+    if mode in ("health","full"):
+        snapshot["dependency_integrity"] = check_dependencies(deps, dep_getter)
+        records = {}
+        for s in registry["sites"]:
+            if s["status"] != "trial_verified":
+                continue
+            # Network checks only for direct APIs; no playback, no scraping code.
+            if s["type"] == 1 and https_url(s["api"]):
+                result = probe(s, json_getter)
+                if result == "fail":
+                    result = probe(s, json_getter)
+                rec = transition(copy.deepcopy(s), snapshot.get("trial_health",{}).get(s["id"]), result, date)
+                rec["status"] = ("retest_required" if rec["failure_days"] >= 3 else
+                                 "watch" if rec["failure_days"] >= 2 else result)
+            else:
+                dep = snapshot["dependency_integrity"].get(s.get("dependency_id"),{})
+                rec = {"status":"dependency_only", "dependency_status":dep.get("status","unknown"),
+                       "playback_test":"not_performed","last_date":date}
+            records[s["id"]] = rec
+        snapshot["trial_health"] = records
+        snapshot["health_checked_on"] = date
+    issues = []
+    for field in ("dependency_integrity","retained_upstream","trial_health"):
+        for sid, rec in snapshot.get(field,{}).items():
+            status = rec.get("status")
+            if status not in ("integrity_ok","unchanged","ok","dependency_only") or rec.get("dependency_status","integrity_ok") != "integrity_ok":
+                issues.append({"scope":field,"id":sid,"status":status})
+    snapshot["maintenance"] = {"mode":"frozen_roster","status":"review_required" if issues else "checked",
+                               "issues":issues,"retained":sum(s["status"]=="trial_verified" for s in registry["sites"]),
+                               "last_run_on":date,"playback_test":"not_performed"}
+    return snapshot
+
+def frozen_run(mode, dry_run=False):
+    registry, policy, deps, upstreams, old = (read(p) for p in
+        ("config/registry.json","config/policy.json","config/dependencies.json","config/upstreams.json","reports/health.json"))
+    build(registry, policy, deps, old.get("sites",{}))
+    result = maintenance_snapshot(registry, policy, deps, upstreams, old, mode)
+    # Print limited report for real CI network verification, not third-party payloads.
+    for field in ("dependency_integrity","retained_upstream","trial_health","maintenance"):
+        print(field + ": " + json.dumps(result.get(field,{}), ensure_ascii=False, sort_keys=True))
+    if not dry_run:
+        save("reports/health.json", result)
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--audit", action="store_true")
+    p.add_argument("--mode", choices=("sync","health","full"), default="health")
+    p.add_argument("--dry-run", action="store_true")
     a = p.parse_args()
-    audit_only() if a.audit else run_health()
+    frozen_run("sync" if a.audit else a.mode, a.dry_run)
