@@ -69,7 +69,12 @@ def build(registry, policy, deps, health=None):
             require(isinstance(cats, list) and bool(cats) and len(set(cats)) == len(cats) and set(cats) <= set(LIMITS), "Invalid trial categories")
             entry = s.get("trial_entry", {})
             require(entry.get("key") == sid and entry.get("name") == s.get("name") and entry.get("api") == s.get("api") and entry.get("type") == s.get("type"), "Trial identity mismatch")
-            require(set(entry) <= {"key","name","type","api","searchable","quickSearch","filterable","changeable","playerType","genre","categories"}, "Unexpected trial fields")
+            require(set(entry) <= {"key","name","type","api","searchable","quickSearch","filterable","changeable","playerType","genre","categories","ext"}, "Unexpected trial fields")
+            if "ext" in entry:
+                require(entry["type"] == 3 and s.get("dependency_id") == "qist-spider"
+                        and isinstance(entry["ext"], str)
+                        and re.fullmatch(r"https://[A-Za-z0-9.-]+/?", entry["ext"]) is not None
+                        and https_url(entry["ext"]), "Invalid trial ext: HTTPS origin only")
             if entry["type"] == 1:
                 require(https_url(entry["api"]) and s.get("dependency_id") is None, "Invalid trial direct API")
             elif entry["type"] == 3:

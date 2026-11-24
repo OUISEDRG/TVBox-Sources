@@ -141,6 +141,15 @@ class ConfigurationTests(unittest.TestCase):
         self.assertEqual(summary["passed"], list(feedback.values()).count("ok"))
         self.assertEqual(summary["failed"], list(feedback.values()).count("fail"))
         self.assertEqual({k:v["result"] for k,v in summary["results"].items()}, feedback)
+    def test_trial_ext_origin_only(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        s = next(s for s in registry["sites"] if s["id"] == "changzhang")
+        result = build({"sites":[s]}, self.policy, deps)
+        self.assertEqual(result["preview.json"]["sites"][0]["ext"], s["trial_entry"]["ext"])
+        for bad in ["http://example.com", "https://example.com/path", "https://u:p@example.com", "https://example.com/?x=1", {"url":"https://example.com"}]:
+            with self.subTest(bad=bad), self.assertRaisesRegex(ValueError, "Invalid trial ext"):
+                build({"sites":[{**s, "trial_entry":{**s["trial_entry"],"ext":bad}}]}, self.policy, deps)
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

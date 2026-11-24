@@ -131,6 +131,25 @@
       "type": 3,
       "api": "csp_ShortHaokan",
       "genre": "shortdrama"
+    },
+    {
+      "key": "yiqi",
+      "name": "一起影视",
+      "type": 3,
+      "api": "csp_AppYQK",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0
+    },
+    {
+      "key": "changzhang",
+      "name": "厂长影视",
+      "type": 3,
+      "api": "csp_Czsapp",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "https://www.4kcz.com"
     }
   ],
   "parses": [],

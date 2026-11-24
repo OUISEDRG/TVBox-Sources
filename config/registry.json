@@ -674,6 +674,64 @@
         "source": "user_fongmi",
         "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
+    },
+    {
+      "id": "yiqi",
+      "name": "一起影视",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "一起影视",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AppYQK",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "yiqi",
+        "name": "一起影视",
+        "type": 3,
+        "api": "csp_AppYQK",
+        "searchable": 1,
+        "quickSearch": 1,
+        "filterable": 0
+      }
+    },
+    {
+      "id": "changzhang",
+      "name": "厂长影视",
+      "categories": [
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "厂长影视",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Czsapp",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "changzhang",
+        "name": "厂长影视",
+        "type": 3,
+        "api": "csp_Czsapp",
+        "searchable": 1,
+        "quickSearch": 1,
+        "filterable": 1,
+        "ext": "https://www.4kcz.com"
+      }
     }
   ]
 }
