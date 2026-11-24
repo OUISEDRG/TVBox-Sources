@@ -125,6 +125,22 @@ class ConfigurationTests(unittest.TestCase):
     def test_preview_policy_fixed(self):
         with self.assertRaises(ValueError):
             build({"sites":[]}, {**self.policy, "preview_category_limits":{"short":99}}, self.deps)
+    def test_manual_isolation_cannot_be_reenabled_implicitly(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        s = next(s for s in registry["sites"] if s.get("reenable_requires_user_retest"))
+        with self.assertRaisesRegex(ValueError, "Manual playback isolation"):
+            build({"sites":[{**s, "status":"trial"}]}, self.policy, deps)
+        with self.assertRaisesRegex(ValueError, "Manual playback isolation"):
+            build({"sites":[{**s, "health_managed":True}]}, self.policy, deps)
+    def test_playback_summary_matches_registry(self):
+        registry = read("config/registry.json")
+        summary = read("reports/health.json")["manual_playback"]
+        feedback = {s["id"]:s["playback_feedback"]["result"] for s in registry["sites"] if "playback_feedback" in s}
+        self.assertEqual(summary["tested"], len(feedback))
+        self.assertEqual(summary["passed"], list(feedback.values()).count("ok"))
+        self.assertEqual(summary["failed"], list(feedback.values()).count("fail"))
+        self.assertEqual({k:v["result"] for k,v in summary["results"].items()}, feedback)
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

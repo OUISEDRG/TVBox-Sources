@@ -49,6 +49,10 @@ def build(registry, policy, deps, health=None):
         ids.add(sid)
         state = s.get("status")
         require(state in STATES, "Invalid state: " + sid)
+        if s.get("reenable_requires_user_retest") is True:
+            require(state == "isolated" and s.get("health_managed") is False
+                    and s.get("playback_verified") is False,
+                    "Manual playback isolation must remain until explicit retest review")
         if state in {"candidate", "isolated", "rejected"}:
             continue
         if state in {"trial", "trial_verified"}:

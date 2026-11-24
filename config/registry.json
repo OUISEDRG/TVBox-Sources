@@ -224,7 +224,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "看剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -235,12 +235,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "kanju",
         "name": "看剧",
         "type": 3,
         "api": "csp_KanJuAI"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -250,7 +256,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "懂片",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -261,12 +267,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "dongpian",
         "name": "懂片",
         "type": 3,
         "api": "csp_DongPian"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -276,7 +288,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "isolated",
       "upstream": "qist/tvbox",
       "upstream_key": "星辰影视",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -293,7 +305,16 @@
         "name": "星辰影视",
         "type": 3,
         "api": "csp_XingChen"
-      }
+      },
+      "playback_feedback": {
+        "result": "fail",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "health_managed": false,
+      "isolation_reason": "user_reported_playback_failure",
+      "reenable_requires_user_retest": true
     },
     {
       "id": "duboku",
@@ -302,7 +323,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "独播影视",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -313,12 +334,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "duboku",
         "name": "独播影视",
         "type": 3,
         "api": "csp_Duboku"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -328,7 +355,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "瓜子影视",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -339,12 +366,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "guazi",
         "name": "瓜子影视",
         "type": 3,
         "api": "csp_Gz360"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -354,7 +387,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "爱看机器人",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -365,7 +398,7 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "ikanbot",
         "name": "爱看机器人",
@@ -374,6 +407,12 @@
         "searchable": 1,
         "quickSearch": 1,
         "filterable": 1
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -382,7 +421,7 @@
       "categories": [
         "series"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "韩圈",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -393,7 +432,7 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "hanquan",
         "name": "韩圈",
@@ -402,6 +441,12 @@
         "searchable": 1,
         "quickSearch": 1,
         "filterable": 1
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -410,7 +455,7 @@
       "categories": [
         "movies"
       ],
-      "status": "trial",
+      "status": "isolated",
       "upstream": "qist/tvbox",
       "upstream_key": "1905",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -430,7 +475,16 @@
         "searchable": 1,
         "quickSearch": 0,
         "filterable": 0
-      }
+      },
+      "playback_feedback": {
+        "result": "fail",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "health_managed": false,
+      "isolation_reason": "user_reported_playback_failure",
+      "reenable_requires_user_retest": true
     },
     {
       "id": "bashi",
@@ -438,7 +492,7 @@
       "categories": [
         "anime"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "巴士动漫",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -449,12 +503,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "bashi",
         "name": "巴士动漫",
         "type": 3,
         "api": "csp_AnimeBashi"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -463,7 +523,7 @@
       "categories": [
         "anime"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "吉里动漫",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -474,12 +534,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "giri",
         "name": "吉里动漫",
         "type": 3,
         "api": "csp_AnimeGiri"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -488,7 +554,7 @@
       "categories": [
         "anime"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "花子动漫",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -499,12 +565,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "huazi",
         "name": "花子动漫",
         "type": 3,
         "api": "csp_AnimeHuazi"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -513,7 +585,7 @@
       "categories": [
         "short"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "河马短剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -524,13 +596,19 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "hema",
         "name": "河马短剧",
         "type": 3,
         "api": "csp_ShortHema",
         "genre": "shortdrama"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -539,7 +617,7 @@
       "categories": [
         "short"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "围观短剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -550,13 +628,19 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "weiguan",
         "name": "围观短剧",
         "type": 3,
         "api": "csp_ShortWeiguan",
         "genre": "shortdrama"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -565,7 +649,7 @@
       "categories": [
         "short"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "好看短剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -576,13 +660,19 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "haokan",
         "name": "好看短剧",
         "type": 3,
         "api": "csp_ShortHaokan",
         "genre": "shortdrama"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     }
   ]

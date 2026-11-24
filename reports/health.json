@@ -1,7 +1,7 @@
 {
   "status": "no_eligible_sites",
   "sites": {},
-  "note": "No eligible endpoints for automated network checks; separate device playback results reported by user.",
+  "note": "Automated network checks have no eligible reviewed endpoints. User device playback feedback is tracked separately: 17 passed, 3 failed across two batches.",
   "upstream_audited_on": "2026-11-25",
   "upstream_audit": {
     "qist": {
@@ -56,9 +56,9 @@
   "manual_playback": {
     "reported_on": "2026-11-25",
     "source": "user_fongmi",
-    "tested": 6,
-    "passed": 5,
-    "failed": 1,
+    "tested": 20,
+    "passed": 17,
+    "failed": 3,
     "results": {
       "liangzi": {
         "name": "量子",
@@ -89,21 +89,91 @@
         "name": "七猫短剧",
         "result": "ok",
         "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "kanju": {
+        "name": "看剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "dongpian": {
+        "name": "懂片",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "xingchen": {
+        "name": "星辰影视",
+        "result": "fail",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "duboku": {
+        "name": "独播影视",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "guazi": {
+        "name": "瓜子影视",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "ikanbot": {
+        "name": "爱看机器人",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "hanquan": {
+        "name": "韩圈",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "web1905": {
+        "name": "1905电影",
+        "result": "fail",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "bashi": {
+        "name": "巴士动漫",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "giri": {
+        "name": "吉里动漫",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "huazi": {
+        "name": "花子动漫",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "hema": {
+        "name": "河马短剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "weiguan": {
+        "name": "围观短剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "haokan": {
+        "name": "好看短剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     }
   },
   "trial_batch": {
     "reported_on": "2026-11-25",
-    "status": "awaiting_user_playback",
-    "verified_sites": 5,
+    "status": "completed",
+    "verified_sites": 17,
     "new_sites": 14,
     "category_slots": {
-      "series": 8,
+      "series": 7,
       "anime": 5,
-      "movies": 8,
+      "movies": 6,
       "short": 5
     },
-    "unique_preview_sites": 19,
+    "unique_preview_sites": 17,
     "added": [
       {
         "id": "kanju",
@@ -112,7 +182,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "dongpian",
@@ -121,7 +191,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "xingchen",
@@ -130,7 +200,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "fail"
       },
       {
         "id": "duboku",
@@ -139,7 +209,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "guazi",
@@ -148,7 +218,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "ikanbot",
@@ -157,7 +227,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "hanquan",
@@ -165,7 +235,7 @@
         "categories": [
           "series"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "web1905",
@@ -173,7 +243,7 @@
         "categories": [
           "movies"
         ],
-        "result": "not_tested"
+        "result": "fail"
       },
       {
         "id": "bashi",
@@ -181,7 +251,7 @@
         "categories": [
           "anime"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "giri",
@@ -189,7 +259,7 @@
         "categories": [
           "anime"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "huazi",
@@ -197,7 +267,7 @@
         "categories": [
           "anime"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "hema",
@@ -205,7 +275,7 @@
         "categories": [
           "short"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "weiguan",
@@ -213,7 +283,7 @@
         "categories": [
           "short"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "haokan",
@@ -221,8 +291,11 @@
         "categories": [
           "short"
         ],
-        "result": "not_tested"
+        "result": "ok"
       }
-    ]
+    ],
+    "tested": 14,
+    "passed": 12,
+    "failed": 2
   }
 }

@@ -64,12 +64,6 @@
       "api": "csp_DongPian"
     },
     {
-      "key": "xingchen",
-      "name": "星辰影视",
-      "type": 3,
-      "api": "csp_XingChen"
-    },
-    {
       "key": "duboku",
       "name": "独播影视",
       "type": 3,
@@ -98,15 +92,6 @@
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
-    },
-    {
-      "key": "web1905",
-      "name": "1905电影",
-      "type": 3,
-      "api": "csp_Web1905",
-      "searchable": 1,
-      "quickSearch": 0,
-      "filterable": 0
     },
     {
       "key": "bashi",
