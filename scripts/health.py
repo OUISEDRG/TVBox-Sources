@@ -246,6 +246,26 @@ def check_dependencies(deps, getter=fetch_bytes):
                              "executed":False,"security_review":"unverified"}
     return results
 
+def compare_upstream_dependencies(deps, getter=fetch_bytes):
+    """Inspect latest bytes at corresponding upstream paths, without changing pins."""
+    result = {}
+    for dep in deps.get("trial_dependencies", []):
+        pinned = dep["url"].split(";md5;", 1)[0]
+        if not re.fullmatch(r"https://raw\.githubusercontent\.com/qist/tvbox/[a-f0-9]{40}/(?:jar/spider\.jar|py/[A-Za-z0-9%_.-]+\.py)", pinned):
+            raise ValueError("Unexpected dependency path")
+        url = re.sub(r"(?<=/qist/tvbox/)[a-f0-9]{40}/", "master/", pinned, count=1)
+        try:
+            state, data = getter(url)
+        except (OSError, ValueError, http.client.HTTPException):
+            state, data = "unknown", None
+        if state != "ok":
+            result[dep["id"]] = {"status":state,"executed":False}
+            continue
+        digest = hashlib.sha256(data).hexdigest()
+        result[dep["id"]] = {"status":"unchanged" if digest == dep.get("sha256") else "changed_upstream",
+                             "sha256":digest,"executed":False}
+    return result
+
 def compare_selected(registry, config, getter=fetch_json):
     """Compare retained sites to latest qist metadata; never import changed definitions."""
     url = next(u["audit_url"] for u in config["upstreams"] if u["id"] == "qist")
@@ -293,6 +313,7 @@ def maintenance_snapshot(registry, policy, deps, upstreams, old, mode="full",
         snapshot["upstream_audit"] = audit_upstreams(upstreams, snapshot.get("upstream_audit"), json_getter)
         snapshot["upstream_audited_on"] = date
         snapshot["retained_upstream"] = compare_selected(registry, upstreams, json_getter)
+        snapshot["upstream_dependency_changes"] = compare_upstream_dependencies(deps, dep_getter)
     if mode in ("health","full"):
         snapshot["dependency_integrity"] = check_dependencies(deps, dep_getter)
         records = {}
@@ -315,11 +336,13 @@ def maintenance_snapshot(registry, policy, deps, upstreams, old, mode="full",
         snapshot["trial_health"] = records
         snapshot["health_checked_on"] = date
     issues = []
-    for field in ("dependency_integrity","retained_upstream","trial_health"):
+    for field in ("dependency_integrity","upstream_dependency_changes","retained_upstream","trial_health"):
         for sid, rec in snapshot.get(field,{}).items():
             status = rec.get("status")
             if status not in ("integrity_ok","unchanged","ok","dependency_only") or rec.get("dependency_status","integrity_ok") != "integrity_ok":
                 issues.append({"scope":field,"id":sid,"status":status})
+    snapshot["status"] = "frozen_roster_monitored"
+    snapshot["note"] = "Metadata and integrity checks only; device playback feedback is separate."
     snapshot["maintenance"] = {"mode":"frozen_roster","status":"review_required" if issues else "checked",
                                "issues":issues,"retained":sum(s["status"]=="trial_verified" for s in registry["sites"]),
                                "last_run_on":date,"playback_test":"not_performed"}
@@ -331,7 +354,7 @@ def frozen_run(mode, dry_run=False):
     build(registry, policy, deps, old.get("sites",{}))
     result = maintenance_snapshot(registry, policy, deps, upstreams, old, mode)
     # Print limited report for real CI network verification, not third-party payloads.
-    for field in ("dependency_integrity","retained_upstream","trial_health","maintenance"):
+    for field in ("dependency_integrity","upstream_dependency_changes","retained_upstream","trial_health","maintenance"):
         print(field + ": " + json.dumps(result.get(field,{}), ensure_ascii=False, sort_keys=True))
     if not dry_run:
         save("reports/health.json", result)

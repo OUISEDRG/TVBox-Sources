@@ -177,7 +177,11 @@ def main():
         from health import frozen_run
         frozen_run("sync")
         return
-    result = build(read("config/registry.json"), read("config/policy.json"), read("config/dependencies.json"), read("reports/health.json").get("sites", {}))
+    registry, policy = read("config/registry.json"), read("config/policy.json")
+    if policy.get("maintenance", {}).get("mode") == "frozen_roster":
+        from health import frozen_guard
+        frozen_guard(registry, policy)
+    result = build(registry, policy, read("config/dependencies.json"), read("reports/health.json").get("sites", {}))
     if args.check:
         require(all(read(path) == data for path, data in result.items()), "Generated files drift")
         print("Configuration check passed")

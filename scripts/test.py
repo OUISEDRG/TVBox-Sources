@@ -1,6 +1,6 @@
 import unittest
 from sync import build, read, ROOT, BASE, LIMITS
-from health import transition, probe, audit_upstreams, mass_loss, frozen_guard, check_dependencies, compare_selected, maintenance_snapshot
+from health import transition, probe, audit_upstreams, mass_loss, frozen_guard, check_dependencies, compare_selected, maintenance_snapshot, compare_upstream_dependencies
 import hashlib
 import copy
 
@@ -272,6 +272,17 @@ class MaintenanceTests(unittest.TestCase):
         self.assertEqual(result["liangzi"]["status"],"changed_upstream")
         self.assertIn("api", result["liangzi"]["changed_fields"])
         self.assertNotIn("example.com",str(result))
+    def test_upstream_dependency_change_no_repin(self):
+        deps = read("config/dependencies.json")
+        before = copy.deepcopy(deps)
+        seen = []
+        def fixture(url):
+            seen.append(url)
+            return "ok", b"changed"
+        result = compare_upstream_dependencies(deps, fixture)
+        self.assertEqual(deps,before)
+        self.assertTrue(all("/master/" in url for url in seen))
+        self.assertTrue(all(x["status"] == "changed_upstream" and not x["executed"] for x in result.values()))
     def test_watch_fallback(self):
         result = build({"sites":[site("main", status="watch", primary_for=["series"]),site("backup")]}, read("config/policy.json"),read("config/dependencies.json"))
         self.assertEqual(result["sources/series.json"]["sites"][0]["key"], "backup")

@@ -1,7 +1,7 @@
 {
-  "status": "no_eligible_sites",
+  "status": "frozen_roster_monitored",
   "sites": {},
-  "note": "Automated network checks have no eligible reviewed endpoints. User device playback feedback is tracked separately: 18 passed, 4 failed across three batches.",
+  "note": "Initial read-only network checks: 18 retained definitions checked; 1 direct API probe; 17 dependency-only checks. Device playback feedback remains separate. Scheduled publication not yet verified.",
   "upstream_audited_on": "2026-11-25",
   "upstream_audit": {
     "qist": {
@@ -206,5 +206,224 @@
     "tested": 2,
     "passed": 1,
     "failed": 1
-  }
+  },
+  "dependency_integrity": {
+    "qist-python": {
+      "bytes": 344638,
+      "executed": false,
+      "git_blob_match": true,
+      "security_review": "unverified",
+      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
+      "status": "integrity_ok"
+    },
+    "qist-spider": {
+      "bytes": 1704212,
+      "executed": false,
+      "git_blob_match": true,
+      "security_review": "unverified",
+      "sha256": "a8107e51df861f66920ae24eef4f022b3b73a6c7a68f9220b05945c7babc7111",
+      "status": "integrity_ok"
+    }
+  },
+  "retained_upstream": {
+    "bashi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "dongpian": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "duboku": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "giri": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "guazi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "hanquan": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "haokan": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "hema": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "hongguo": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "huazi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "ikanbot": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "kanju": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "liangzi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "qimao": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "tsukimi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "weiguan": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "xifan": {
+      "changed_fields": [],
+      "status": "unchanged"
+    },
+    "yiqi": {
+      "changed_fields": [],
+      "status": "unchanged"
+    }
+  },
+  "trial_health": {
+    "bashi": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "dongpian": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "duboku": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "giri": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "guazi": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "hanquan": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "haokan": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "hema": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "hongguo": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "huazi": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "ikanbot": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "kanju": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "liangzi": {
+      "failure_days": 0,
+      "history": {
+        "2026-11-25": "ok"
+      },
+      "last_date": "2026-11-25",
+      "last_result": "ok",
+      "playback_test": "not_performed",
+      "recovery_days": 1,
+      "sample_count": 1,
+      "status": "ok",
+      "success_rate": 1
+    },
+    "qimao": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "tsukimi": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "weiguan": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "xifan": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    },
+    "yiqi": {
+      "dependency_status": "integrity_ok",
+      "last_date": "2026-11-25",
+      "playback_test": "not_performed",
+      "status": "dependency_only"
+    }
+  },
+  "maintenance": {
+    "issues": [],
+    "last_run_on": "2026-11-25",
+    "mode": "frozen_roster",
+    "playback_test": "not_performed",
+    "retained": 18,
+    "status": "checked",
+    "baseline_run_id": 45490798548
+  },
+  "health_checked_on": "2026-11-25"
 }

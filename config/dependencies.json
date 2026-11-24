@@ -5,18 +5,28 @@
       "id": "qist-spider",
       "url": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/jar/spider.jar;md5;3443259a2e4be3f96f73175cefb11090",
       "git_blob": "e88f7235fb5838f8c671e2d9dd85de9e12206635",
-      "sha256": null,
+      "sha256": "a8107e51df861f66920ae24eef4f022b3b73a6c7a68f9220b05945c7babc7111",
       "review": "unverified",
       "upstream_md5": "3443259a2e4be3f96f73175cefb11090",
-      "size": 1704212
+      "size": 1704212,
+      "integrity_baseline": {
+        "source": "github_actions_read_only_check",
+        "run_id": 45490798548,
+        "verified_on": "2026-11-25"
+      }
     },
     {
       "id": "qist-python",
       "url": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
-      "sha256": null,
+      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
       "review": "unverified",
       "git_blob": "a3375a0a173f61ed4d1bd365500d82d5b7150be6",
-      "size": 344638
+      "size": 344638,
+      "integrity_baseline": {
+        "source": "github_actions_read_only_check",
+        "run_id": 45490798548,
+        "verified_on": "2026-11-25"
+      }
     }
   ]
 }
