@@ -1,7 +1,7 @@
 {
   "status": "no_eligible_sites",
   "sites": {},
-  "note": "No eligible endpoints; no actual playback performed",
+  "note": "No eligible endpoints for automated network checks; separate device playback results reported by user.",
   "upstream_audited_on": "2026-11-25",
   "upstream_audit": {
     "qist": {
@@ -51,6 +51,45 @@
       },
       "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
       "admission": "blocked_pending_rights_and_security_review"
+    }
+  },
+  "manual_playback": {
+    "reported_on": "2026-11-25",
+    "source": "user_fongmi",
+    "tested": 6,
+    "passed": 5,
+    "failed": 1,
+    "results": {
+      "liangzi": {
+        "name": "量子",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "jinchan": {
+        "name": "金蝉",
+        "result": "fail",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "tsukimi": {
+        "name": "赏月动漫",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "xifan": {
+        "name": "稀饭动漫",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "hongguo": {
+        "name": "红果短剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "qimao": {
+        "name": "七猫短剧",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      }
     }
   }
 }

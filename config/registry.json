@@ -7,7 +7,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "量子",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -18,7 +18,7 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "liangzi",
         "name": "量子",
@@ -43,6 +43,12 @@
           "海外剧",
           "泰国剧"
         ]
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -52,7 +58,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "isolated",
       "upstream": "qist/tvbox",
       "upstream_key": "金蝉采集",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -74,7 +80,16 @@
         "filterable": 1,
         "changeable": 1,
         "playerType": 2
-      }
+      },
+      "playback_feedback": {
+        "result": "fail",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "health_managed": false,
+      "isolation_reason": "user_reported_playback_failure",
+      "reenable_requires_user_retest": true
     },
     {
       "id": "tsukimi",
@@ -82,7 +97,7 @@
       "categories": [
         "anime"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "赏月动漫",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -93,12 +108,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "tsukimi",
         "name": "赏月动漫",
         "type": 3,
         "api": "csp_AnimeTsukimi"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -107,7 +128,7 @@
       "categories": [
         "anime"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "稀饭动漫",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -118,12 +139,18 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "xifan",
         "name": "稀饭动漫",
         "type": 3,
         "api": "csp_AnimeXifan"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -132,7 +159,7 @@
       "categories": [
         "short"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "红果短剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -143,13 +170,19 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "hongguo",
         "name": "红果短剧",
         "type": 3,
         "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
         "genre": "shortdrama"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -158,7 +191,7 @@
       "categories": [
         "short"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "七猫短剧",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -169,13 +202,19 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "qimao",
         "name": "七猫短剧",
         "type": 3,
         "api": "csp_ShortQimao",
         "genre": "shortdrama"
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     }
   ]

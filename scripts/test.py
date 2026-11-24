@@ -66,12 +66,48 @@ class ConfigurationTests(unittest.TestCase):
         registry = read("config/registry.json")
         deps = read("config/dependencies.json")
         r = build(registry, self.policy, deps)
-        trials = [s for s in registry["sites"] if s["status"] == "trial"]
+        trials = [s for s in registry["sites"] if s["status"] in {"trial", "trial_verified"}]
         self.assertTrue(set(s["id"] for s in trials) <= {e["key"] for e in r["preview.json"]["sites"]})
         self.assertFalse(set(s["id"] for s in trials) & {e["key"] for e in r["tvbox.json"]["sites"]})
     def test_trial_approval_forbidden(self):
         with self.assertRaises(ValueError):
             self.build(site(status="trial"))
+    def test_verified_trial_requires_matching_feedback(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        trials = [s for s in registry["sites"] if s["status"] == "trial_verified"]
+        self.assertTrue(trials)
+        s = dict(trials[0])
+        for feedback in ({}, {**s["playback_feedback"], "upstream_ref": "wrong"},
+                         {**s["playback_feedback"], "result": "fail"}):
+            with self.subTest(feedback=feedback), self.assertRaises(ValueError):
+                build({"sites": [{**s, "playback_feedback": feedback}]}, self.policy, deps)
+    def test_verified_trial_not_formally_approved(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        s = next(s for s in registry["sites"] if s["status"] == "trial_verified")
+        with self.assertRaises(ValueError):
+            build({"sites": [{**s, "approved": True}]}, self.policy, deps)
+    def test_user_failed_trial_excluded(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        result = build(registry, self.policy, deps)
+        keys = {e["key"] for cfg in result.values() for e in cfg["sites"]}
+        failed = [s for s in registry["sites"] if s.get("isolation_reason") == "user_reported_playback_failure"]
+        self.assertTrue(failed)
+        for s in failed:
+            self.assertNotIn(s["id"], keys)
+            self.assertFalse(s.get("health_managed"))
+            self.assertTrue(s.get("reenable_requires_user_retest"))
+    def test_verified_trial_prioritized(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        s = next(s for s in registry["sites"] if s["status"] == "trial_verified")
+        new = {**s, "id": "fresh", "status": "trial", "playback_verified": False,
+               "api": "https://example.com/new", "type": 1, "dependency_id": None,
+               "trial_entry": {"key":"fresh","name":s["name"],"type":1,"api":"https://example.com/new"}}
+        result = build({"sites":[new,s]}, self.policy, deps)
+        self.assertEqual([x["key"] for x in result["preview.json"]["sites"]], [s["id"],"fresh"])
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

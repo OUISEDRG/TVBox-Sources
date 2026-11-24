@@ -26,17 +26,6 @@
       ]
     },
     {
-      "key": "jinchan",
-      "name": "金蝉",
-      "type": 1,
-      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1,
-      "changeable": 1,
-      "playerType": 2
-    },
-    {
       "key": "tsukimi",
       "name": "赏月动漫",
       "type": 3,

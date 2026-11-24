@@ -1,5 +1,6 @@
 """P1 configuration builder. Only explicitly reviewed direct HTTPS JSON APIs.
 No third-party execution, no network requests, no auto-admission.
+User-verified trial entries remain distinct from fully reviewed formal sources.
 """
 import argparse
 import json
@@ -11,7 +12,7 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 LIMITS = {"series": 8, "anime": 5, "movies": 8, "short": 5}
 BASE = "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/"
-STATES = {"candidate", "pending_playback", "active", "watch", "isolated", "rejected", "trial"}
+STATES = {"candidate", "pending_playback", "active", "watch", "isolated", "rejected", "trial", "trial_verified"}
 
 def read(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
@@ -49,8 +50,16 @@ def build(registry, policy, deps, health=None):
         require(state in STATES, "Invalid state: " + sid)
         if state in {"candidate", "isolated", "rejected"}:
             continue
-        if state == "trial":
-            require(s.get("approved") is False and s.get("playback_verified") is False, "Trial cannot be marked approved or verified")
+        if state in {"trial", "trial_verified"}:
+            require(s.get("approved") is False, "Trial cannot be marked formally approved")
+            require(s.get("playback_verified") is (state == "trial_verified"), "Trial playback flag mismatch")
+            if state == "trial_verified":
+                feedback = s.get("playback_feedback", {})
+                require(feedback.get("result") == "ok" and feedback.get("source") == "user_fongmi"
+                        and feedback.get("upstream_ref") == s.get("upstream_ref")
+                        and isinstance(feedback.get("reported_on"), str)
+                        and re.fullmatch(r"\d{4}-\d{2}-\d{2}", feedback["reported_on"]) is not None,
+                        "Verified trial requires matching device feedback")
             cats = s.get("categories")
             require(isinstance(cats, list) and bool(cats) and len(set(cats)) == len(cats) and set(cats) <= set(LIMITS), "Invalid trial categories")
             entry = s.get("trial_entry", {})
@@ -119,7 +128,9 @@ def build(registry, policy, deps, health=None):
         require(sum(category in s["categories"] for s, _ in preview + trial) <= policy["initial_candidates_per_category"],
                 "Initial preview category limit exceeded")
     result["tvbox.json"] = config(list(all_entries.values()))
-    result["preview.json"] = config([e for _, e in preview + trial])
+    # Verified trials precede new, untested candidates; preserve relative order for equal states.
+    trial.sort(key=lambda item: item[0]["status"] != "trial_verified")
+    result["preview.json"] = config([e for _, e in trial + preview])
     if any(s.get("dependency_id") == "qist-spider" for s, _ in trial):
         result["preview.json"]["spider"] = trial_dependencies["qist-spider"]["url"]
     return result
