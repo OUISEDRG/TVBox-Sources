@@ -1,29 +1,54 @@
 {
   "upstreams": [
     {
+      "id": "qist",
       "name": "qist/tvbox",
-      "status": "pending_review",
-      "priority": "P0"
+      "priority": "P0",
+      "repo": "qist/tvbox",
+      "audit_url": "https://raw.githubusercontent.com/qist/tvbox/master/jsm.json",
+      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "status": "metadata_only",
+      "rights_review": "not_confirmed"
     },
     {
+      "id": "gao",
       "name": "高天流云",
-      "status": "pending_review",
-      "priority": "P0"
+      "priority": "P0",
+      "repo": "gaotianliuyun/gao",
+      "audit_url": "https://raw.githubusercontent.com/gaotianliuyun/gao/master/0825.json",
+      "reviewed_ref": "8213bb046f4dce746b5f2ddcddb13a336d0b0d60",
+      "status": "metadata_only",
+      "rights_review": "not_confirmed"
     },
     {
-      "name": "王二小",
-      "status": "pending_review",
-      "priority": "P1"
+      "id": "feimao",
+      "name": "肥猫（镜像）",
+      "priority": "P1",
+      "repo": "Lightconer/tvbox-ysc-config",
+      "audit_url": "https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/feimao.json",
+      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "status": "metadata_only",
+      "rights_review": "not_confirmed"
     },
     {
-      "name": "肥猫",
-      "status": "pending_review",
-      "priority": "P1"
+      "id": "wangerxiao",
+      "name": "王二小（镜像）",
+      "priority": "P1",
+      "repo": "Lightconer/tvbox-ysc-config",
+      "audit_url": "https://raw.githubusercontent.com/Lightconer/tvbox-ysc-config/main/output/wangerxiao.json",
+      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "status": "metadata_only",
+      "rights_review": "not_confirmed"
     },
     {
-      "name": "饭太硬",
-      "status": "pending_review",
-      "priority": "P2"
+      "id": "fantaiying",
+      "name": "饭太硬（镜像）",
+      "priority": "P2",
+      "repo": "qist/tvbox",
+      "audit_url": "https://raw.githubusercontent.com/qist/tvbox/master/fty.json",
+      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "status": "metadata_only",
+      "rights_review": "not_confirmed"
     }
   ]
 }

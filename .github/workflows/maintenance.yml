@@ -1,8 +1,17 @@
-name: Configuration checks
+name: TVBox maintenance
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '30 20 * * *'
+    - cron: '0 2,14 * * *'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Maintenance mode
+        type: choice
+        options: [check, sync, health, preview, build, full]
+        default: check
 permissions:
   contents: read
 concurrency:
@@ -11,9 +20,48 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
       - run: python3 scripts/sync.py --check
       - run: python3 scripts/test.py
-      - run: python3 scripts/health.py
-# Enable scheduled writes only after the network and publication pipeline is reviewed.
+  maintain:
+    needs: check
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.mode != 'check'))
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: main
+      - name: Run bounded maintenance
+        env:
+          MODE: ${{ inputs.mode }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          set -eu
+          if [ "$SCHEDULE" = "30 20 * * *" ]; then MODE=health; fi
+          if [ "$SCHEDULE" = "0 2,14 * * *" ]; then MODE=sync; fi
+          case "$MODE" in
+            sync) python3 scripts/sync.py --audit-upstreams ;;
+            health) python3 scripts/health.py ;;
+            full) python3 scripts/sync.py --audit-upstreams; python3 scripts/health.py ;;
+            preview|build) ;;
+            *) exit 1 ;;
+          esac
+          python3 scripts/sync.py
+          python3 scripts/sync.py --check
+          python3 scripts/test.py
+      - name: Commit only validated generated changes
+        run: |
+          set -eu
+          git add -- config/registry.json reports/health.json tvbox.json preview.json sources/
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore: validated maintenance update'
+          git push origin HEAD:main

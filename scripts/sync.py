@@ -31,7 +31,8 @@ def https_url(value):
     except ValueError:
         return False
 
-def build(registry, policy, deps):
+def build(registry, policy, deps, health=None):
+    health = health or {}
     require(policy["categories"] == LIMITS and policy["base_url"] == BASE
             and policy["approval_required"] is True, "Fixed policy mismatch")
     require(deps["dependencies"] == [], "Executable dependencies not supported in this release")
@@ -77,8 +78,10 @@ def build(registry, policy, deps):
     for category, items in formal.items():
         require(len(items) <= LIMITS[category], "Category limit exceeded: " + category)
         require(sum(category in s.get("primary_for", []) for s, _ in items) <= 1, "Multiple active primaries")
-        items.sort(key=lambda item: (category not in item[0].get("primary_for", []),
-                                     item[0]["status"] != "active", -item[0]["score"], item[0]["id"]))
+        items.sort(key=lambda item: (item[0]["status"] != "active",
+                                     category not in item[0].get("primary_for", []),
+                                     -(health.get(item[0]["id"], {}).get("success_rate") or 0) if health.get(item[0]["id"], {}).get("sample_count", 0) >= 3 else -item[0]["score"] / 100,
+                                     -item[0]["score"], item[0]["id"]))
         entries = [entry for _, entry in items]
         result["sources/" + category + ".json"] = config(entries)
         for entry in entries:
@@ -93,8 +96,13 @@ def build(registry, policy, deps):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--audit-upstreams", action="store_true")
     args = parser.parse_args()
-    result = build(read("config/registry.json"), read("config/policy.json"), read("config/dependencies.json"))
+    if args.audit_upstreams:
+        from health import audit_only
+        audit_only()
+        return
+    result = build(read("config/registry.json"), read("config/policy.json"), read("config/dependencies.json"), read("reports/health.json").get("sites", {}))
     if args.check:
         require(all(read(path) == data for path, data in result.items()), "Generated files drift")
         print("Configuration check passed")

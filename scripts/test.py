@@ -1,5 +1,6 @@
 import unittest
 from sync import build, read, ROOT, BASE, LIMITS
+from health import transition, probe, audit_upstreams
 
 def site(id="one", **kwargs):
     return dict(id=id, name=id, status="active", type=1, api="https://example.com/" + id,
@@ -17,7 +18,7 @@ class ConfigurationTests(unittest.TestCase):
     def test_limits(self):
         self.assertEqual(sum(LIMITS.values()), 26)
     def test_committed_outputs(self):
-        for path, data in build(read("config/registry.json"), self.policy, self.deps).items():
+        for path, data in build(read("config/registry.json"), self.policy, self.deps, read("reports/health.json").get("sites", {})).items():
             self.assertEqual(read(path), data, path)
     def test_empty(self):
         result = self.build()
@@ -63,6 +64,58 @@ class ConfigurationTests(unittest.TestCase):
             build({"sites": []}, {**self.policy,"categories":{"short":99}}, self.deps)
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
+
+class MaintenanceTests(unittest.TestCase):
+    def test_failure_and_recovery(self):
+        s = site()
+        r = {}
+        for i in range(1, 4):
+            r = transition(s, r, "fail", f"2026-01-0{i}")
+        self.assertEqual(s["status"], "isolated")
+        r = transition(s, r, "ok", "2026-01-04")
+        self.assertEqual(s["status"], "isolated")
+        r = transition(s, r, "ok", "2026-01-05")
+        self.assertEqual(s["status"], "active")
+    def test_repeat_same_day(self):
+        s = site()
+        r = {}
+        for i in range(4):
+            r = transition(s, r, "fail", "2026-01-01")
+        self.assertEqual(s["status"], "active")
+        self.assertEqual(r["failure_days"], 1)
+    def test_unknown(self):
+        s = site()
+        r = transition(s, {}, "fail", "2026-01-01")
+        r = transition(s, r, "unknown", "2026-01-02")
+        r = transition(s, r, "fail", "2026-01-03")
+        self.assertEqual(s["status"], "active")
+        self.assertEqual(r["failure_days"], 1)
+    def test_manual_isolation(self):
+        s = site(status="isolated")
+        r = transition(s, {}, "ok", "2026-01-01")
+        transition(s, r, "ok", "2026-01-02")
+        self.assertEqual(s["status"], "isolated")
+    def test_probe(self):
+        def fake(url):
+            if "ac=detail" in url:
+                return "ok", {"list":[{"vod_id":1}]}
+            if "ac=videolist" in url:
+                return "ok", {"list":[{"vod_id":1}]}
+            return "ok", {"class":[{"type_id":1}]}
+        self.assertEqual(probe(site(), fake), "ok")
+        self.assertEqual(probe(site(), lambda url: ("ok", {})), "fail")
+        self.assertEqual(probe(site(), lambda url: ("unknown", None)), "unknown")
+    def test_audit_no_import(self):
+        config = {"upstreams":[{"id":"a", "audit_url":"https://raw.githubusercontent.com/a/b/main/x.json"}]}
+        r = audit_upstreams(config, getter=lambda url: ("ok", {"sites":[{"type":3, "api":"secret"}],"spider":"unknown"}))
+        self.assertEqual(r["a"]["types"], {"3":1})
+        self.assertNotIn("secret", str(r))
+    def test_audit_host_gate(self):
+        with self.assertRaises(ValueError):
+            audit_upstreams({"upstreams":[{"id":"a","audit_url":"https://example.com/x"}]})
+    def test_watch_fallback(self):
+        result = build({"sites":[site("main", status="watch", primary_for=["series"]),site("backup")]}, read("config/policy.json"),read("config/dependencies.json"))
+        self.assertEqual(result["sources/series.json"]["sites"][0]["key"], "backup")
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

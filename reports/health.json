@@ -1,5 +1,56 @@
 {
-  "status": "not_run",
+  "status": "no_eligible_sites",
   "sites": {},
-  "note": "尚无通过审核的站点；未进行联网或播放检测"
+  "note": "No eligible endpoints; no actual playback performed",
+  "upstream_audited_on": "2026-11-25",
+  "upstream_audit": {
+    "qist": {
+      "status": "readable",
+      "site_count": 162,
+      "types": {
+        "0": 1,
+        "1": 14,
+        "3": 147
+      },
+      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "admission": "blocked_pending_rights_and_security_review"
+    },
+    "gao": {
+      "status": "readable",
+      "site_count": 135,
+      "types": {
+        "1": 7,
+        "3": 128
+      },
+      "reviewed_ref": "8213bb046f4dce746b5f2ddcddb13a336d0b0d60",
+      "admission": "blocked_pending_rights_and_security_review"
+    },
+    "feimao": {
+      "status": "readable",
+      "site_count": 40,
+      "types": {
+        "3": 40
+      },
+      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "admission": "blocked_pending_rights_and_security_review"
+    },
+    "wangerxiao": {
+      "status": "readable",
+      "site_count": 95,
+      "types": {
+        "3": 95
+      },
+      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "admission": "blocked_pending_rights_and_security_review"
+    },
+    "fantaiying": {
+      "status": "readable",
+      "site_count": 50,
+      "types": {
+        "3": 50
+      },
+      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "admission": "blocked_pending_rights_and_security_review"
+    }
+  }
 }
