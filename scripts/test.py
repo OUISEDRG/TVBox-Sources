@@ -104,7 +104,7 @@ class ConfigurationTests(unittest.TestCase):
         deps = read("config/dependencies.json")
         s = next(s for s in registry["sites"] if s["status"] == "trial_verified")
         new = {**s, "id": "fresh", "status": "trial", "playback_verified": False,
-               "api": "https://example.com/new", "type": 1, "dependency_id": None,
+               "api": "https://example.com/new", "type": 1, "dependency_id": None, "trial_primary_for": [],
                "trial_entry": {"key":"fresh","name":s["name"],"type":1,"api":"https://example.com/new"}}
         result = build({"sites":[new,s]}, self.policy, deps)
         self.assertEqual([x["key"] for x in result["preview.json"]["sites"]], [s["id"],"fresh"])
@@ -150,6 +150,36 @@ class ConfigurationTests(unittest.TestCase):
         for bad in ["http://example.com", "https://example.com/path", "https://u:p@example.com", "https://example.com/?x=1", {"url":"https://example.com"}]:
             with self.subTest(bad=bad), self.assertRaisesRegex(ValueError, "Invalid trial ext"):
                 build({"sites":[{**s, "trial_entry":{**s["trial_entry"],"ext":bad}}]}, self.policy, deps)
+    def test_trial_pins_and_order(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        result = build(registry, self.policy, deps)
+        pinned = {c:s["id"] for s in registry["sites"] for c in s.get("trial_primary_for", [])}
+        self.assertEqual(set(pinned), set(LIMITS))
+        expected = list(dict.fromkeys(pinned[c] for c in LIMITS))
+        self.assertEqual([s["key"] for s in result["preview.json"]["sites"][:len(expected)]], expected)
+    def test_trial_pin_rejects_unverified_and_duplicate(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        chosen = next(s for s in registry["sites"] if s.get("trial_primary_for"))
+        c = chosen["trial_primary_for"][0]
+        backup = next(s for s in registry["sites"] if s["status"] == "trial_verified"
+                      and s["id"] != chosen["id"] and c in s["categories"])
+        with self.assertRaisesRegex(ValueError, "Multiple trial primaries"):
+            build({"sites":[chosen,{**backup,"trial_primary_for":[c]}]}, self.policy, deps)
+        with self.assertRaisesRegex(ValueError, "Trial primary must be verified"):
+            build({"sites":[{**chosen,"status":"trial","playback_verified":False}]}, self.policy, deps)
+    def test_trial_primary_fallback(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        chosen = next(s for s in registry["sites"] if s.get("trial_primary_for"))
+        c = chosen["trial_primary_for"][0]
+        backup = next(s for s in registry["sites"] if s["status"] == "trial_verified"
+                      and s["id"] != chosen["id"] and c in s["categories"])
+        standby = {**backup,"trial_primary_for":[]}
+        failed = {**chosen,"status":"isolated","playback_verified":False}
+        result = build({"sites":[failed,standby]}, self.policy, deps)
+        self.assertEqual([s["key"] for s in result["preview.json"]["sites"]], [standby["id"]])
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

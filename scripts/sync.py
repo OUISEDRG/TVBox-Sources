@@ -43,12 +43,22 @@ def build(registry, policy, deps, health=None):
     preview = []
     trial = []
     trial_dependencies = {d["id"]: d for d in deps.get("trial_dependencies", [])}
+    trial_pins = {}
     for s in registry["sites"]:
         sid = s.get("id", "")
         require(isinstance(sid, str) and re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,63}", sid) is not None and sid not in ids, "Invalid or duplicate ID")
         ids.add(sid)
         state = s.get("status")
         require(state in STATES, "Invalid state: " + sid)
+        pins = s.get("trial_primary_for", [])
+        require(isinstance(pins, list) and len(set(pins)) == len(pins)
+                and set(pins) <= set(s.get("categories", [])) and set(pins) <= set(LIMITS),
+                "Invalid trial primary assignment")
+        if pins:
+            require(state in {"trial_verified", "isolated"}, "Trial primary must be verified or isolated")
+            for category in pins:
+                require(category not in trial_pins, "Multiple trial primaries")
+                trial_pins[category] = sid
         if s.get("reenable_requires_user_retest") is True:
             require(state == "isolated" and s.get("health_managed") is False
                     and s.get("playback_verified") is False,
@@ -138,8 +148,21 @@ def build(registry, policy, deps, health=None):
         require(sum(category in s["categories"] for s, _ in preview + trial) <= policy["preview_category_limits"][category],
                 "Preview category limit exceeded: " + category)
     result["tvbox.json"] = config(list(all_entries.values()))
-    # Verified trials precede new, untested candidates; preserve relative order for equal states.
-    trial.sort(key=lambda item: item[0]["status"] != "trial_verified")
+    # Keep chosen primaries ahead of backups, with verified fallback if a pin is isolated.
+    # FongMi receives a flat list, not separate category-specific default selections.
+    verified_trials = [s for s, _ in trial if s["status"] == "trial_verified"]
+    priority = {}
+    for category in LIMITS:
+        if category not in trial_pins:
+            continue
+        eligible = [s for s in verified_trials if category in s["categories"]]
+        chosen = next((s for s in eligible if s["id"] == trial_pins[category]), None)
+        if chosen is None and eligible:
+            chosen = eligible[0]
+        if chosen is not None and chosen["id"] not in priority:
+            priority[chosen["id"]] = len(priority)
+    trial.sort(key=lambda item: (item[0]["status"] != "trial_verified",
+                                 priority.get(item[0]["id"], len(priority))))
     result["preview.json"] = config([e for _, e in trial + preview])
     if any(s.get("dependency_id") == "qist-spider" for s, _ in trial):
         result["preview.json"]["spider"] = trial_dependencies["qist-spider"]["url"]

@@ -1,6 +1,18 @@
 {
   "sites": [
     {
+      "key": "kanju",
+      "name": "看剧",
+      "type": 3,
+      "api": "csp_KanJuAI"
+    },
+    {
+      "key": "tsukimi",
+      "name": "赏月动漫",
+      "type": 3,
+      "api": "csp_AnimeTsukimi"
+    },
+    {
       "key": "liangzi",
       "name": "量子",
       "type": 1,
@@ -26,10 +38,11 @@
       ]
     },
     {
-      "key": "tsukimi",
-      "name": "赏月动漫",
+      "key": "hongguo",
+      "name": "红果短剧",
       "type": 3,
-      "api": "csp_AnimeTsukimi"
+      "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+      "genre": "shortdrama"
     },
     {
       "key": "xifan",
@@ -38,24 +51,11 @@
       "api": "csp_AnimeXifan"
     },
     {
-      "key": "hongguo",
-      "name": "红果短剧",
-      "type": 3,
-      "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
-      "genre": "shortdrama"
-    },
-    {
       "key": "qimao",
       "name": "七猫短剧",
       "type": 3,
       "api": "csp_ShortQimao",
       "genre": "shortdrama"
-    },
-    {
-      "key": "kanju",
-      "name": "看剧",
-      "type": 3,
-      "api": "csp_KanJuAI"
     },
     {
       "key": "dongpian",
