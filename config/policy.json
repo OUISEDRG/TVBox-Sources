@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "categories": {
+    "series": 8,
+    "anime": 5,
+    "movies": 8,
+    "short": 5
+  },
+  "initial_candidates_per_category": 2,
+  "failure_days_watch": 2,
+  "failure_days_isolate": 3,
+  "recovery_checks": 2,
+  "ranking_window_days": 7,
+  "background": "#F9F6F4",
+  "approval_required": true,
+  "base_url": "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/"
+}

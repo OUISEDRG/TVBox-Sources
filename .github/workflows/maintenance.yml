@@ -1,0 +1,18 @@
+name: P0 configuration checks
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tvbox-maintenance
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/test.py
+      - run: python3 scripts/health.py
+# P1: enable schedules and write permissions only after reviewed implementation.

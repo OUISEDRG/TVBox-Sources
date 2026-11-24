@@ -1,0 +1,29 @@
+{
+  "upstreams": [
+    {
+      "name": "qist/tvbox",
+      "status": "pending_review",
+      "priority": "P0"
+    },
+    {
+      "name": "高天流云",
+      "status": "pending_review",
+      "priority": "P0"
+    },
+    {
+      "name": "王二小",
+      "status": "pending_review",
+      "priority": "P1"
+    },
+    {
+      "name": "肥猫",
+      "status": "pending_review",
+      "priority": "P1"
+    },
+    {
+      "name": "饭太硬",
+      "status": "pending_review",
+      "priority": "P2"
+    }
+  ]
+}
