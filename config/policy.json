@@ -44,6 +44,16 @@
     ],
     "automatic_admission": false,
     "automatic_dependency_updates": false,
-    "automatic_trial_removal": false
+    "automatic_trial_removal": false,
+    "user_operational_acceptance": {
+      "recorded_on": "2026-11-25",
+      "scope": "existing_frozen_roster_only",
+      "long_term_stability": "not_blocking_routine_use",
+      "third_party_security": "not_blocking_routine_use",
+      "content_authorization": "not_blocking_routine_use",
+      "independent_verification": "not_completed",
+      "formal_review_gate_unchanged": true,
+      "integrity_checks_retained": true
+    }
   }
 }
