@@ -1,6 +1,70 @@
 {
-  "sites": [],
+  "sites": [
+    {
+      "key": "liangzi",
+      "name": "量子",
+      "type": 1,
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "categories": [
+        "动作片",
+        "喜剧片",
+        "爱情片",
+        "科幻片",
+        "恐怖片",
+        "剧情片",
+        "战争片",
+        "国产剧",
+        "香港剧",
+        "韩国剧",
+        "欧美剧",
+        "记录片",
+        "台湾剧",
+        "日本剧",
+        "海外剧",
+        "泰国剧"
+      ]
+    },
+    {
+      "key": "jinchan",
+      "name": "金蝉",
+      "type": 1,
+      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1,
+      "playerType": 2
+    },
+    {
+      "key": "tsukimi",
+      "name": "赏月动漫",
+      "type": 3,
+      "api": "csp_AnimeTsukimi"
+    },
+    {
+      "key": "xifan",
+      "name": "稀饭动漫",
+      "type": 3,
+      "api": "csp_AnimeXifan"
+    },
+    {
+      "key": "hongguo",
+      "name": "红果短剧",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+      "genre": "shortdrama"
+    },
+    {
+      "key": "qimao",
+      "name": "七猫短剧",
+      "type": 3,
+      "api": "csp_ShortQimao",
+      "genre": "shortdrama"
+    }
+  ],
   "parses": [],
   "lives": [],
-  "wallpaper": "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/assets/wallpaper.png"
+  "wallpaper": "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/assets/wallpaper.png",
+  "spider": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/jar/spider.jar;md5;3443259a2e4be3f96f73175cefb11090"
 }

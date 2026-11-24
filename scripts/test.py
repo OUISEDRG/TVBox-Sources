@@ -12,13 +12,13 @@ def site(id="one", **kwargs):
 class ConfigurationTests(unittest.TestCase):
     def setUp(self):
         self.policy = read("config/policy.json")
-        self.deps = read("config/dependencies.json")
+        self.deps = {"dependencies": []}
     def build(self, *sites):
         return build({"sites": list(sites)}, self.policy, self.deps)
     def test_limits(self):
         self.assertEqual(sum(LIMITS.values()), 26)
     def test_committed_outputs(self):
-        for path, data in build(read("config/registry.json"), self.policy, self.deps, read("reports/health.json").get("sites", {})).items():
+        for path, data in build(read("config/registry.json"), self.policy, read("config/dependencies.json"), read("reports/health.json").get("sites", {})).items():
             self.assertEqual(read(path), data, path)
     def test_empty(self):
         result = self.build()
@@ -62,6 +62,16 @@ class ConfigurationTests(unittest.TestCase):
     def test_policy_change(self):
         with self.assertRaises(ValueError):
             build({"sites": []}, {**self.policy,"categories":{"short":99}}, self.deps)
+    def test_trial_preview_only(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        r = build(registry, self.policy, deps)
+        trials = [s for s in registry["sites"] if s["status"] == "trial"]
+        self.assertTrue(set(s["id"] for s in trials) <= {e["key"] for e in r["preview.json"]["sites"]})
+        self.assertFalse(set(s["id"] for s in trials) & {e["key"] for e in r["tvbox.json"]["sites"]})
+    def test_trial_approval_forbidden(self):
+        with self.assertRaises(ValueError):
+            self.build(site(status="trial"))
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

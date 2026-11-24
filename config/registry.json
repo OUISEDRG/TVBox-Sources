@@ -1,3 +1,182 @@
 {
-  "sites": []
+  "sites": [
+    {
+      "id": "liangzi",
+      "name": "量子",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "量子",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 1,
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "dependency_id": null,
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "liangzi",
+        "name": "量子",
+        "type": 1,
+        "api": "https://cj.lziapi.com/api.php/provide/vod/",
+        "searchable": 1,
+        "categories": [
+          "动作片",
+          "喜剧片",
+          "爱情片",
+          "科幻片",
+          "恐怖片",
+          "剧情片",
+          "战争片",
+          "国产剧",
+          "香港剧",
+          "韩国剧",
+          "欧美剧",
+          "记录片",
+          "台湾剧",
+          "日本剧",
+          "海外剧",
+          "泰国剧"
+        ]
+      }
+    },
+    {
+      "id": "jinchan",
+      "name": "金蝉",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "金蝉采集",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 1,
+      "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+      "dependency_id": null,
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "jinchan",
+        "name": "金蝉",
+        "type": 1,
+        "api": "https://zy.jinchancaiji.com/api.php/provide/vod",
+        "searchable": 1,
+        "quickSearch": 1,
+        "filterable": 1,
+        "changeable": 1,
+        "playerType": 2
+      }
+    },
+    {
+      "id": "tsukimi",
+      "name": "赏月动漫",
+      "categories": [
+        "anime"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "赏月动漫",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AnimeTsukimi",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "tsukimi",
+        "name": "赏月动漫",
+        "type": 3,
+        "api": "csp_AnimeTsukimi"
+      }
+    },
+    {
+      "id": "xifan",
+      "name": "稀饭动漫",
+      "categories": [
+        "anime"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "稀饭动漫",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AnimeXifan",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "xifan",
+        "name": "稀饭动漫",
+        "type": 3,
+        "api": "csp_AnimeXifan"
+      }
+    },
+    {
+      "id": "hongguo",
+      "name": "红果短剧",
+      "categories": [
+        "short"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "红果短剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+      "dependency_id": "qist-python",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "hongguo",
+        "name": "红果短剧",
+        "type": 3,
+        "api": "https://raw.githubusercontent.com/qist/tvbox/f3718ef6811fc7fcf0ef4c12227618dbefebfcd8/py/%E7%BA%A2%E6%9E%9C%E7%9F%AD%E5%89%A7.py",
+        "genre": "shortdrama"
+      }
+    },
+    {
+      "id": "qimao",
+      "name": "七猫短剧",
+      "categories": [
+        "short"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "七猫短剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_ShortQimao",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "qimao",
+        "name": "七猫短剧",
+        "type": 3,
+        "api": "csp_ShortQimao",
+        "genre": "shortdrama"
+      }
+    }
+  ]
 }

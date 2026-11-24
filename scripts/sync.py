@@ -11,7 +11,7 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parents[1]
 LIMITS = {"series": 8, "anime": 5, "movies": 8, "short": 5}
 BASE = "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/"
-STATES = {"candidate", "pending_playback", "active", "watch", "isolated", "rejected"}
+STATES = {"candidate", "pending_playback", "active", "watch", "isolated", "rejected", "trial"}
 
 def read(path):
     return json.loads((ROOT / path).read_text(encoding="utf-8"))
@@ -39,6 +39,8 @@ def build(registry, policy, deps, health=None):
     ids, endpoints = set(), set()
     formal = {c: [] for c in LIMITS}
     preview = []
+    trial = []
+    trial_dependencies = {d["id"]: d for d in deps.get("trial_dependencies", [])}
     for s in registry["sites"]:
         sid = s.get("id", "")
         require(isinstance(sid, str) and re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,63}", sid) is not None and sid not in ids, "Invalid or duplicate ID")
@@ -46,6 +48,33 @@ def build(registry, policy, deps, health=None):
         state = s.get("status")
         require(state in STATES, "Invalid state: " + sid)
         if state in {"candidate", "isolated", "rejected"}:
+            continue
+        if state == "trial":
+            require(s.get("approved") is False and s.get("playback_verified") is False, "Trial cannot be marked approved or verified")
+            cats = s.get("categories")
+            require(isinstance(cats, list) and bool(cats) and len(set(cats)) == len(cats) and set(cats) <= set(LIMITS), "Invalid trial categories")
+            entry = s.get("trial_entry", {})
+            require(entry.get("key") == sid and entry.get("name") == s.get("name") and entry.get("api") == s.get("api") and entry.get("type") == s.get("type"), "Trial identity mismatch")
+            require(set(entry) <= {"key","name","type","api","searchable","quickSearch","filterable","changeable","playerType","genre","categories"}, "Unexpected trial fields")
+            if entry["type"] == 1:
+                require(https_url(entry["api"]) and s.get("dependency_id") is None, "Invalid trial direct API")
+            elif entry["type"] == 3:
+                dep = trial_dependencies.get(s.get("dependency_id"), {})
+                ref = s.get("upstream_ref", "")
+                require(re.fullmatch(r"[0-9a-f]{40}", ref) is not None and s.get("upstream") == "qist/tvbox", "Invalid trial pin")
+                prefix = "https://raw.githubusercontent.com/qist/tvbox/" + ref + "/"
+                if s.get("dependency_id") == "qist-spider":
+                    require(re.fullmatch(r"csp_[A-Za-z0-9_]+", entry["api"]) is not None and dep.get("url", "").startswith(prefix + "jar/spider.jar;md5;"), "Invalid trial JAR")
+                elif s.get("dependency_id") == "qist-python":
+                    require(entry["api"] == dep.get("url") and entry["api"].startswith(prefix + "py/") and entry["api"].endswith(".py"), "Invalid trial Python")
+                else:
+                    raise ValueError("Unknown trial dependency")
+            else:
+                raise ValueError("Unsupported trial site type")
+            normalized = entry["api"].rstrip("/").lower()
+            require(normalized not in endpoints, "Duplicate trial endpoint")
+            endpoints.add(normalized)
+            trial.append((s, entry))
             continue
         name, api = s.get("name"), s.get("api")
         cats, primary = s.get("categories"), s.get("primary_for", [])
@@ -87,10 +116,12 @@ def build(registry, policy, deps, health=None):
         for entry in entries:
             all_entries.setdefault(entry["key"], entry)
     for category in LIMITS:
-        require(sum(category in s["categories"] for s, _ in preview) <= policy["initial_candidates_per_category"],
+        require(sum(category in s["categories"] for s, _ in preview + trial) <= policy["initial_candidates_per_category"],
                 "Initial preview category limit exceeded")
     result["tvbox.json"] = config(list(all_entries.values()))
-    result["preview.json"] = config([e for _, e in sorted(preview, key=lambda item: item[0]["id"])])
+    result["preview.json"] = config([e for _, e in preview + trial])
+    if any(s.get("dependency_id") == "qist-spider" for s, _ in trial):
+        result["preview.json"]["spider"] = trial_dependencies["qist-spider"]["url"]
     return result
 
 def main():
