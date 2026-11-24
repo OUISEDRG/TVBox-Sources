@@ -1,4 +1,4 @@
-name: P0 configuration checks
+name: Configuration checks
 on:
   push:
     branches: [main]
@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: python3 scripts/sync.py --check
       - run: python3 scripts/test.py
       - run: python3 scripts/health.py
-# P1: enable schedules and write permissions only after reviewed implementation.
+# Enable scheduled writes only after the network and publication pipeline is reviewed.
