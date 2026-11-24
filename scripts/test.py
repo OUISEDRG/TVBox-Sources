@@ -108,6 +108,23 @@ class ConfigurationTests(unittest.TestCase):
                "trial_entry": {"key":"fresh","name":s["name"],"type":1,"api":"https://example.com/new"}}
         result = build({"sites":[new,s]}, self.policy, deps)
         self.assertEqual([x["key"] for x in result["preview.json"]["sites"]], [s["id"],"fresh"])
+    def test_preview_capacity_per_category(self):
+        registry = read("config/registry.json")
+        deps = read("config/dependencies.json")
+        trials = [s for s in registry["sites"] if s["status"] in {"trial", "trial_verified"}]
+        for category, limit in LIMITS.items():
+            subset = [s for s in trials if category in s["categories"]]
+            self.assertLessEqual(len(subset), limit)
+            example = {"status":"trial","type":1,"dependency_id":None,"approved":False,
+                       "playback_verified":False,"categories":[category],"name":"Fixture"}
+            extra = [{**example, "id":f"fixture{i}", "api":f"https://example.com/{i}",
+                      "trial_entry":{"key":f"fixture{i}","name":"Fixture","type":1,"api":f"https://example.com/{i}"}}
+                     for i in range(limit + 1)]
+            with self.subTest(category=category), self.assertRaisesRegex(ValueError, "Preview category limit exceeded"):
+                build({"sites":extra}, self.policy, deps)
+    def test_preview_policy_fixed(self):
+        with self.assertRaises(ValueError):
+            build({"sites":[]}, {**self.policy, "preview_category_limits":{"short":99}}, self.deps)
     def test_wallpaper(self):
         self.assertTrue((ROOT/"assets/wallpaper.png").is_file())
 

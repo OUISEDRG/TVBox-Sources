@@ -216,6 +216,374 @@
         "source": "user_fongmi",
         "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
+    },
+    {
+      "id": "kanju",
+      "name": "看剧",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "看剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_KanJuAI",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "kanju",
+        "name": "看剧",
+        "type": 3,
+        "api": "csp_KanJuAI"
+      }
+    },
+    {
+      "id": "dongpian",
+      "name": "懂片",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "懂片",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_DongPian",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "dongpian",
+        "name": "懂片",
+        "type": 3,
+        "api": "csp_DongPian"
+      }
+    },
+    {
+      "id": "xingchen",
+      "name": "星辰影视",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "星辰影视",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_XingChen",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "xingchen",
+        "name": "星辰影视",
+        "type": 3,
+        "api": "csp_XingChen"
+      }
+    },
+    {
+      "id": "duboku",
+      "name": "独播影视",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "独播影视",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Duboku",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "duboku",
+        "name": "独播影视",
+        "type": 3,
+        "api": "csp_Duboku"
+      }
+    },
+    {
+      "id": "guazi",
+      "name": "瓜子影视",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "瓜子影视",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Gz360",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "guazi",
+        "name": "瓜子影视",
+        "type": 3,
+        "api": "csp_Gz360"
+      }
+    },
+    {
+      "id": "ikanbot",
+      "name": "爱看机器人",
+      "categories": [
+        "series",
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "爱看机器人",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Ikanbot",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "ikanbot",
+        "name": "爱看机器人",
+        "type": 3,
+        "api": "csp_Ikanbot",
+        "searchable": 1,
+        "quickSearch": 1,
+        "filterable": 1
+      }
+    },
+    {
+      "id": "hanquan",
+      "name": "韩圈",
+      "categories": [
+        "series"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "韩圈",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Hxq",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "hanquan",
+        "name": "韩圈",
+        "type": 3,
+        "api": "csp_Hxq",
+        "searchable": 1,
+        "quickSearch": 1,
+        "filterable": 1
+      }
+    },
+    {
+      "id": "web1905",
+      "name": "1905电影",
+      "categories": [
+        "movies"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "1905",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_Web1905",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "web1905",
+        "name": "1905电影",
+        "type": 3,
+        "api": "csp_Web1905",
+        "searchable": 1,
+        "quickSearch": 0,
+        "filterable": 0
+      }
+    },
+    {
+      "id": "bashi",
+      "name": "巴士动漫",
+      "categories": [
+        "anime"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "巴士动漫",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AnimeBashi",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "bashi",
+        "name": "巴士动漫",
+        "type": 3,
+        "api": "csp_AnimeBashi"
+      }
+    },
+    {
+      "id": "giri",
+      "name": "吉里动漫",
+      "categories": [
+        "anime"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "吉里动漫",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AnimeGiri",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "giri",
+        "name": "吉里动漫",
+        "type": 3,
+        "api": "csp_AnimeGiri"
+      }
+    },
+    {
+      "id": "huazi",
+      "name": "花子动漫",
+      "categories": [
+        "anime"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "花子动漫",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_AnimeHuazi",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "huazi",
+        "name": "花子动漫",
+        "type": 3,
+        "api": "csp_AnimeHuazi"
+      }
+    },
+    {
+      "id": "hema",
+      "name": "河马短剧",
+      "categories": [
+        "short"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "河马短剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_ShortHema",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "hema",
+        "name": "河马短剧",
+        "type": 3,
+        "api": "csp_ShortHema",
+        "genre": "shortdrama"
+      }
+    },
+    {
+      "id": "weiguan",
+      "name": "围观短剧",
+      "categories": [
+        "short"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "围观短剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_ShortWeiguan",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "weiguan",
+        "name": "围观短剧",
+        "type": 3,
+        "api": "csp_ShortWeiguan",
+        "genre": "shortdrama"
+      }
+    },
+    {
+      "id": "haokan",
+      "name": "好看短剧",
+      "categories": [
+        "short"
+      ],
+      "status": "trial",
+      "upstream": "qist/tvbox",
+      "upstream_key": "好看短剧",
+      "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "type": 3,
+      "api": "csp_ShortHaokan",
+      "dependency_id": "qist-spider",
+      "authorization_reviewed": false,
+      "security_reviewed": false,
+      "compatibility_reviewed": false,
+      "approved": false,
+      "playback_verified": false,
+      "trial_entry": {
+        "key": "haokan",
+        "name": "好看短剧",
+        "type": 3,
+        "api": "csp_ShortHaokan",
+        "genre": "shortdrama"
+      }
     }
   ]
 }

@@ -13,5 +13,11 @@
   "ranking_window_days": 7,
   "background": "#F9F6F4",
   "approval_required": true,
-  "base_url": "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/"
+  "base_url": "https://raw.githubusercontent.com/OUISEDRG/TVBox-Sources/main/",
+  "preview_category_limits": {
+    "series": 8,
+    "anime": 5,
+    "movies": 8,
+    "short": 5
+  }
 }

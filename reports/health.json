@@ -91,5 +91,138 @@
         "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     }
+  },
+  "trial_batch": {
+    "reported_on": "2026-11-25",
+    "status": "awaiting_user_playback",
+    "verified_sites": 5,
+    "new_sites": 14,
+    "category_slots": {
+      "series": 8,
+      "anime": 5,
+      "movies": 8,
+      "short": 5
+    },
+    "unique_preview_sites": 19,
+    "added": [
+      {
+        "id": "kanju",
+        "name": "看剧",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "dongpian",
+        "name": "懂片",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "xingchen",
+        "name": "星辰影视",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "duboku",
+        "name": "独播影视",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "guazi",
+        "name": "瓜子影视",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "ikanbot",
+        "name": "爱看机器人",
+        "categories": [
+          "series",
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "hanquan",
+        "name": "韩圈",
+        "categories": [
+          "series"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "web1905",
+        "name": "1905电影",
+        "categories": [
+          "movies"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "bashi",
+        "name": "巴士动漫",
+        "categories": [
+          "anime"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "giri",
+        "name": "吉里动漫",
+        "categories": [
+          "anime"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "huazi",
+        "name": "花子动漫",
+        "categories": [
+          "anime"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "hema",
+        "name": "河马短剧",
+        "categories": [
+          "short"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "weiguan",
+        "name": "围观短剧",
+        "categories": [
+          "short"
+        ],
+        "result": "not_tested"
+      },
+      {
+        "id": "haokan",
+        "name": "好看短剧",
+        "categories": [
+          "short"
+        ],
+        "result": "not_tested"
+      }
+    ]
   }
 }

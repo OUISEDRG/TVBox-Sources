@@ -50,6 +50,102 @@
       "type": 3,
       "api": "csp_ShortQimao",
       "genre": "shortdrama"
+    },
+    {
+      "key": "kanju",
+      "name": "看剧",
+      "type": 3,
+      "api": "csp_KanJuAI"
+    },
+    {
+      "key": "dongpian",
+      "name": "懂片",
+      "type": 3,
+      "api": "csp_DongPian"
+    },
+    {
+      "key": "xingchen",
+      "name": "星辰影视",
+      "type": 3,
+      "api": "csp_XingChen"
+    },
+    {
+      "key": "duboku",
+      "name": "独播影视",
+      "type": 3,
+      "api": "csp_Duboku"
+    },
+    {
+      "key": "guazi",
+      "name": "瓜子影视",
+      "type": 3,
+      "api": "csp_Gz360"
+    },
+    {
+      "key": "ikanbot",
+      "name": "爱看机器人",
+      "type": 3,
+      "api": "csp_Ikanbot",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "hanquan",
+      "name": "韩圈",
+      "type": 3,
+      "api": "csp_Hxq",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "web1905",
+      "name": "1905电影",
+      "type": 3,
+      "api": "csp_Web1905",
+      "searchable": 1,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
+      "key": "bashi",
+      "name": "巴士动漫",
+      "type": 3,
+      "api": "csp_AnimeBashi"
+    },
+    {
+      "key": "giri",
+      "name": "吉里动漫",
+      "type": 3,
+      "api": "csp_AnimeGiri"
+    },
+    {
+      "key": "huazi",
+      "name": "花子动漫",
+      "type": 3,
+      "api": "csp_AnimeHuazi"
+    },
+    {
+      "key": "hema",
+      "name": "河马短剧",
+      "type": 3,
+      "api": "csp_ShortHema",
+      "genre": "shortdrama"
+    },
+    {
+      "key": "weiguan",
+      "name": "围观短剧",
+      "type": 3,
+      "api": "csp_ShortWeiguan",
+      "genre": "shortdrama"
+    },
+    {
+      "key": "haokan",
+      "name": "好看短剧",
+      "type": 3,
+      "api": "csp_ShortHaokan",
+      "genre": "shortdrama"
     }
   ],
   "parses": [],

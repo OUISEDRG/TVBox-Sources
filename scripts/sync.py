@@ -36,6 +36,7 @@ def build(registry, policy, deps, health=None):
     health = health or {}
     require(policy["categories"] == LIMITS and policy["base_url"] == BASE
             and policy["approval_required"] is True, "Fixed policy mismatch")
+    require(policy.get("preview_category_limits") == LIMITS, "Preview category policy mismatch")
     require(deps["dependencies"] == [], "Executable dependencies not supported in this release")
     ids, endpoints = set(), set()
     formal = {c: [] for c in LIMITS}
@@ -125,8 +126,8 @@ def build(registry, policy, deps, health=None):
         for entry in entries:
             all_entries.setdefault(entry["key"], entry)
     for category in LIMITS:
-        require(sum(category in s["categories"] for s, _ in preview + trial) <= policy["initial_candidates_per_category"],
-                "Initial preview category limit exceeded")
+        require(sum(category in s["categories"] for s, _ in preview + trial) <= policy["preview_category_limits"][category],
+                "Preview category limit exceeded: " + category)
     result["tvbox.json"] = config(list(all_entries.values()))
     # Verified trials precede new, untested candidates; preserve relative order for equal states.
     trial.sort(key=lambda item: item[0]["status"] != "trial_verified")
