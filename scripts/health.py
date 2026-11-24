@@ -1,5 +1,6 @@
 """Network health and metadata-only upstream audit. No third-party code is executed."""
 import argparse
+import copy
 import datetime as dt
 import http.client
 import ipaddress
@@ -165,10 +166,16 @@ def audit_only():
     save("reports/health.json", report)
     print("Upstream metadata audit completed; no sites imported")
 
+def mass_loss(before, after):
+    old = {s['id'] for s in before['sites'] if s['status'] in ('active', 'watch')}
+    new = {s['id'] for s in after['sites'] if s['status'] in ('active', 'watch')}
+    return bool(old) and len(old - new) * 2 >= len(old)
+
 def run_health():
     registry, policy, deps = (read(p) for p in ("config/registry.json","config/policy.json","config/dependencies.json"))
     old = read("reports/health.json")
     build(registry, policy, deps, old.get("sites", {}))
+    before = copy.deepcopy(registry)
     records = {}
     date = day()
     for s in registry["sites"]:
@@ -180,12 +187,17 @@ def run_health():
         if result == "fail":
             result = probe(s) # recheck a definitive failure
         records[s["id"]] = transition(s, old.get("sites", {}).get(s["id"]), result, date)
+    blocked = mass_loss(before, registry)
+    if blocked:
+        registry = before
     build(registry, policy, deps, records)
-    old.update(status="checked" if records else "no_eligible_sites", sites=records,
+    old.update(status="bulk_loss_hold" if blocked else ("checked" if records else "no_eligible_sites"), sites=records,
                health_checked_on=date, note="Interface checks only; no device playback tested")
     save("config/registry.json", registry)
     save("reports/health.json", old)
     print("Health checks:", len(records), "eligible sites; no device playback tests")
+    if blocked:
+        print("Bulk loss held: human review required; formal registry unchanged")
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()

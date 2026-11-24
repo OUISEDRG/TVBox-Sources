@@ -1,6 +1,6 @@
 import unittest
 from sync import build, read, ROOT, BASE, LIMITS
-from health import transition, probe, audit_upstreams
+from health import transition, probe, audit_upstreams, mass_loss
 
 def site(id="one", **kwargs):
     return dict(id=id, name=id, status="active", type=1, api="https://example.com/" + id,
@@ -113,6 +113,12 @@ class MaintenanceTests(unittest.TestCase):
     def test_audit_host_gate(self):
         with self.assertRaises(ValueError):
             audit_upstreams({"upstreams":[{"id":"a","audit_url":"https://example.com/x"}]})
+    def test_bulk_loss_guard(self):
+        before = {'sites':[site('one'),site('two')]}
+        after = {'sites':[site('one',status='isolated'),site('two')]}
+        self.assertTrue(mass_loss(before, after))
+        self.assertFalse(mass_loss(before, before))
+        self.assertFalse(mass_loss({'sites':[]}, before))
     def test_watch_fallback(self):
         result = build({"sites":[site("main", status="watch", primary_for=["series"]),site("backup")]}, read("config/policy.json"),read("config/dependencies.json"))
         self.assertEqual(result["sources/series.json"]["sites"][0]["key"], "backup")
