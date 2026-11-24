@@ -694,7 +694,7 @@
         "series",
         "movies"
       ],
-      "status": "trial",
+      "status": "trial_verified",
       "upstream": "qist/tvbox",
       "upstream_key": "一起影视",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -705,7 +705,7 @@
       "security_reviewed": false,
       "compatibility_reviewed": false,
       "approved": false,
-      "playback_verified": false,
+      "playback_verified": true,
       "trial_entry": {
         "key": "yiqi",
         "name": "一起影视",
@@ -714,6 +714,12 @@
         "searchable": 1,
         "quickSearch": 1,
         "filterable": 0
+      },
+      "playback_feedback": {
+        "result": "ok",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     },
     {
@@ -722,7 +728,7 @@
       "categories": [
         "movies"
       ],
-      "status": "trial",
+      "status": "isolated",
       "upstream": "qist/tvbox",
       "upstream_key": "厂长影视",
       "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
@@ -743,7 +749,16 @@
         "quickSearch": 1,
         "filterable": 1,
         "ext": "https://www.4kcz.com"
-      }
+      },
+      "playback_feedback": {
+        "result": "fail",
+        "reported_on": "2026-11-25",
+        "source": "user_fongmi",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "health_managed": false,
+      "isolation_reason": "user_reported_playback_failure",
+      "reenable_requires_user_retest": true
     }
   ]
 }

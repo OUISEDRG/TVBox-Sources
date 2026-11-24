@@ -1,7 +1,7 @@
 {
   "status": "no_eligible_sites",
   "sites": {},
-  "note": "Automated network checks have no eligible reviewed endpoints. User device playback feedback is tracked separately: 17 passed, 3 failed across two batches.",
+  "note": "Automated network checks have no eligible reviewed endpoints. User device playback feedback is tracked separately: 18 passed, 4 failed across three batches.",
   "upstream_audited_on": "2026-11-25",
   "upstream_audit": {
     "qist": {
@@ -56,9 +56,9 @@
   "manual_playback": {
     "reported_on": "2026-11-25",
     "source": "user_fongmi",
-    "tested": 20,
-    "passed": 17,
-    "failed": 3,
+    "tested": 22,
+    "passed": 18,
+    "failed": 4,
     "results": {
       "liangzi": {
         "name": "量子",
@@ -159,21 +159,31 @@
         "name": "好看短剧",
         "result": "ok",
         "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "yiqi": {
+        "name": "一起影视",
+        "result": "ok",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
+      },
+      "changzhang": {
+        "name": "厂长影视",
+        "result": "fail",
+        "upstream_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8"
       }
     }
   },
   "trial_batch": {
     "reported_on": "2026-11-25",
-    "status": "awaiting_user_playback",
-    "verified_sites": 17,
+    "status": "completed",
+    "verified_sites": 18,
     "new_sites": 2,
     "category_slots": {
       "series": 8,
       "anime": 5,
-      "movies": 8,
+      "movies": 7,
       "short": 5
     },
-    "unique_preview_sites": 19,
+    "unique_preview_sites": 18,
     "added": [
       {
         "id": "yiqi",
@@ -182,7 +192,7 @@
           "series",
           "movies"
         ],
-        "result": "not_tested"
+        "result": "ok"
       },
       {
         "id": "changzhang",
@@ -190,8 +200,11 @@
         "categories": [
           "movies"
         ],
-        "result": "not_tested"
+        "result": "fail"
       }
-    ]
+    ],
+    "tested": 2,
+    "passed": 1,
+    "failed": 1
   }
 }

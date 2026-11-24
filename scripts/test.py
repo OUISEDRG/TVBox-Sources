@@ -144,7 +144,9 @@ class ConfigurationTests(unittest.TestCase):
     def test_trial_ext_origin_only(self):
         registry = read("config/registry.json")
         deps = read("config/dependencies.json")
-        s = next(s for s in registry["sites"] if s["id"] == "changzhang")
+        original = next(s for s in registry["sites"] if s["id"] == "changzhang")
+        # Synthetic fixture only; the real failed site must remain isolated.
+        s = {**original, "status":"trial", "playback_verified":False, "reenable_requires_user_retest":False}
         result = build({"sites":[s]}, self.policy, deps)
         self.assertEqual(result["preview.json"]["sites"][0]["ext"], s["trial_entry"]["ext"])
         for bad in ["http://example.com", "https://example.com/path", "https://u:p@example.com", "https://example.com/?x=1", {"url":"https://example.com"}]:
