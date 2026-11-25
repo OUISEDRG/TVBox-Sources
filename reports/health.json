@@ -1,28 +1,28 @@
 {
   "status": "frozen_roster_monitored",
   "sites": {},
-  "note": "Initial read-only network checks: 18 retained definitions checked; 1 direct API probe; 17 dependency-only checks. Device playback feedback remains separate. Scheduled publication not yet verified.",
+  "note": "Metadata and integrity checks only; device playback feedback is separate.",
   "upstream_audited_on": "2026-11-25",
   "upstream_audit": {
     "qist": {
       "status": "readable",
-      "site_count": 162,
+      "site_count": 161,
       "types": {
-        "0": 1,
+        "3": 146,
         "1": 14,
-        "3": 147
+        "0": 1
       },
-      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "global_spider": true,
       "admission": "blocked_pending_rights_and_security_review"
     },
     "gao": {
       "status": "readable",
       "site_count": 135,
       "types": {
-        "1": 7,
-        "3": 128
+        "3": 128,
+        "1": 7
       },
-      "reviewed_ref": "8213bb046f4dce746b5f2ddcddb13a336d0b0d60",
+      "global_spider": true,
       "admission": "blocked_pending_rights_and_security_review"
     },
     "feimao": {
@@ -31,7 +31,7 @@
       "types": {
         "3": 40
       },
-      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "global_spider": true,
       "admission": "blocked_pending_rights_and_security_review"
     },
     "wangerxiao": {
@@ -40,7 +40,7 @@
       "types": {
         "3": 95
       },
-      "reviewed_ref": "20eaa4ec9233ea48c68c68139bcd597f430b9237",
+      "global_spider": true,
       "admission": "blocked_pending_rights_and_security_review"
     },
     "fantaiying": {
@@ -49,7 +49,7 @@
       "types": {
         "3": 50
       },
-      "reviewed_ref": "f3718ef6811fc7fcf0ef4c12227618dbefebfcd8",
+      "global_spider": true,
       "admission": "blocked_pending_rights_and_security_review"
     }
   },
@@ -226,77 +226,77 @@
     }
   },
   "retained_upstream": {
-    "bashi": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "dongpian": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "duboku": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "giri": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "guazi": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "hanquan": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "haokan": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "hema": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "hongguo": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "huazi": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "ikanbot": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "kanju": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
     "liangzi": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "qimao": {
-      "changed_fields": [],
-      "status": "unchanged"
+      "status": "unchanged",
+      "changed_fields": []
     },
     "tsukimi": {
-      "changed_fields": [],
-      "status": "unchanged"
-    },
-    "weiguan": {
-      "changed_fields": [],
-      "status": "unchanged"
+      "status": "unchanged",
+      "changed_fields": []
     },
     "xifan": {
-      "changed_fields": [],
-      "status": "unchanged"
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "hongguo": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "qimao": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "kanju": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "dongpian": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "duboku": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "guazi": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "ikanbot": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "hanquan": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "bashi": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "giri": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "huazi": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "hema": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "weiguan": {
+      "status": "unchanged",
+      "changed_fields": []
+    },
+    "haokan": {
+      "status": "unchanged",
+      "changed_fields": []
     },
     "yiqi": {
-      "changed_fields": [],
-      "status": "unchanged"
+      "status": "unchanged",
+      "changed_fields": []
     }
   },
   "trial_health": {
@@ -417,13 +417,30 @@
     }
   },
   "maintenance": {
-    "issues": [],
-    "last_run_on": "2026-11-25",
     "mode": "frozen_roster",
-    "playback_test": "not_performed",
+    "status": "review_required",
+    "issues": [
+      {
+        "scope": "upstream_dependency_changes",
+        "id": "qist-spider",
+        "status": "changed_upstream"
+      }
+    ],
     "retained": 18,
-    "status": "checked",
-    "baseline_run_id": 45490798548
+    "last_run_on": "2026-11-25",
+    "playback_test": "not_performed"
   },
-  "health_checked_on": "2026-11-25"
+  "health_checked_on": "2026-11-25",
+  "upstream_dependency_changes": {
+    "qist-spider": {
+      "status": "changed_upstream",
+      "sha256": "fce2f30a27354f858da824b7734f700b75821d9925d0cda17eaa2cf20950f4a8",
+      "executed": false
+    },
+    "qist-python": {
+      "status": "unchanged",
+      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
+      "executed": false
+    }
+  }
 }
