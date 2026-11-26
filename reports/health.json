@@ -208,21 +208,21 @@
     "failed": 1
   },
   "dependency_integrity": {
-    "qist-python": {
-      "bytes": 344638,
-      "executed": false,
-      "git_blob_match": true,
-      "security_review": "unverified",
-      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
-      "status": "integrity_ok"
-    },
     "qist-spider": {
+      "status": "integrity_ok",
+      "sha256": "a8107e51df861f66920ae24eef4f022b3b73a6c7a68f9220b05945c7babc7111",
+      "git_blob_match": true,
       "bytes": 1704212,
       "executed": false,
+      "security_review": "unverified"
+    },
+    "qist-python": {
+      "status": "integrity_ok",
+      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
       "git_blob_match": true,
-      "security_review": "unverified",
-      "sha256": "a8107e51df861f66920ae24eef4f022b3b73a6c7a68f9220b05945c7babc7111",
-      "status": "integrity_ok"
+      "bytes": 344638,
+      "executed": false,
+      "security_review": "unverified"
     }
   },
   "retained_upstream": {
@@ -300,120 +300,121 @@
     }
   },
   "trial_health": {
-    "bashi": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "dongpian": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "duboku": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "giri": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "guazi": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "hanquan": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "haokan": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "hema": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "hongguo": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "huazi": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "ikanbot": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "kanju": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
     "liangzi": {
       "failure_days": 0,
       "history": {
-        "2026-11-25": "ok"
+        "2026-11-25": "ok",
+        "2026-11-26": "ok"
       },
-      "last_date": "2026-11-25",
+      "last_date": "2026-11-26",
       "last_result": "ok",
       "playback_test": "not_performed",
-      "recovery_days": 1,
-      "sample_count": 1,
+      "recovery_days": 2,
+      "sample_count": 2,
       "status": "ok",
-      "success_rate": 1
-    },
-    "qimao": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
+      "success_rate": 1.0
     },
     "tsukimi": {
+      "status": "dependency_only",
       "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
       "playback_test": "not_performed",
-      "status": "dependency_only"
-    },
-    "weiguan": {
-      "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
-      "playback_test": "not_performed",
-      "status": "dependency_only"
+      "last_date": "2026-11-26"
     },
     "xifan": {
+      "status": "dependency_only",
       "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
       "playback_test": "not_performed",
-      "status": "dependency_only"
+      "last_date": "2026-11-26"
+    },
+    "hongguo": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "qimao": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "kanju": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "dongpian": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "duboku": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "guazi": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "ikanbot": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "hanquan": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "bashi": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "giri": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "huazi": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "hema": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "weiguan": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
+    },
+    "haokan": {
+      "status": "dependency_only",
+      "dependency_status": "integrity_ok",
+      "playback_test": "not_performed",
+      "last_date": "2026-11-26"
     },
     "yiqi": {
+      "status": "dependency_only",
       "dependency_status": "integrity_ok",
-      "last_date": "2026-11-25",
       "playback_test": "not_performed",
-      "status": "dependency_only"
+      "last_date": "2026-11-26"
     }
   },
   "maintenance": {
@@ -430,7 +431,7 @@
     "last_run_on": "2026-11-26",
     "playback_test": "not_performed"
   },
-  "health_checked_on": "2026-11-25",
+  "health_checked_on": "2026-11-26",
   "upstream_dependency_changes": {
     "qist-spider": {
       "status": "changed_upstream",
