@@ -2,7 +2,7 @@
   "status": "frozen_roster_monitored",
   "sites": {},
   "note": "Metadata and integrity checks only; device playback feedback is separate.",
-  "upstream_audited_on": "2026-11-26",
+  "upstream_audited_on": "2026-11-27",
   "upstream_audit": {
     "qist": {
       "status": "readable",
@@ -428,7 +428,7 @@
       }
     ],
     "retained": 18,
-    "last_run_on": "2026-11-26",
+    "last_run_on": "2026-11-27",
     "playback_test": "not_performed"
   },
   "health_checked_on": "2026-11-26",
