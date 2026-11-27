@@ -436,7 +436,7 @@
   "upstream_dependency_changes": {
     "qist-spider": {
       "status": "changed_upstream",
-      "sha256": "fce2f30a27354f858da824b7734f700b75821d9925d0cda17eaa2cf20950f4a8",
+      "sha256": "b79f4356d0df72bbf0203003dd382e146f046000f6be2100996e48245fb890d6",
       "executed": false
     },
     "qist-python": {
