@@ -305,13 +305,14 @@
       "history": {
         "2026-11-25": "ok",
         "2026-11-26": "ok",
-        "2026-11-27": "ok"
+        "2026-11-27": "ok",
+        "2026-11-28": "ok"
       },
-      "last_date": "2026-11-27",
+      "last_date": "2026-11-28",
       "last_result": "ok",
       "playback_test": "not_performed",
-      "recovery_days": 3,
-      "sample_count": 3,
+      "recovery_days": 4,
+      "sample_count": 4,
       "status": "ok",
       "success_rate": 1.0
     },
@@ -319,103 +320,103 @@
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "xifan": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "hongguo": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "qimao": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "kanju": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "dongpian": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "duboku": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "guazi": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "ikanbot": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "hanquan": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "bashi": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "giri": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "huazi": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "hema": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "weiguan": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "haokan": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     },
     "yiqi": {
       "status": "dependency_only",
       "dependency_status": "integrity_ok",
       "playback_test": "not_performed",
-      "last_date": "2026-11-27"
+      "last_date": "2026-11-28"
     }
   },
   "maintenance": {
@@ -432,7 +433,7 @@
     "last_run_on": "2026-11-28",
     "playback_test": "not_performed"
   },
-  "health_checked_on": "2026-11-27",
+  "health_checked_on": "2026-11-28",
   "upstream_dependency_changes": {
     "qist-spider": {
       "status": "changed_upstream",
