@@ -427,6 +427,11 @@
         "scope": "upstream_dependency_changes",
         "id": "qist-spider",
         "status": "changed_upstream"
+      },
+      {
+        "scope": "upstream_dependency_changes",
+        "id": "qist-python",
+        "status": "changed_upstream"
       }
     ],
     "retained": 18,
@@ -437,12 +442,12 @@
   "upstream_dependency_changes": {
     "qist-spider": {
       "status": "changed_upstream",
-      "sha256": "b79f4356d0df72bbf0203003dd382e146f046000f6be2100996e48245fb890d6",
+      "sha256": "dae089b55d7803d3fedec1a7b34bb58a3d9af100faddaba5cbda3b409f3a4183",
       "executed": false
     },
     "qist-python": {
-      "status": "unchanged",
-      "sha256": "97c5b12025e57893cb02d6ae1b0798ad8464dea6b8df85ba20387bbecb23b221",
+      "status": "changed_upstream",
+      "sha256": "4aa49c9d564369711cff01c354f33ed3a2dc1f379ba47d716dce8d45eab5440a",
       "executed": false
     }
   }
